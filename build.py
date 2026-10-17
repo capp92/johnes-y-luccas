@@ -31,6 +31,13 @@ ROOT = Path(__file__).resolve().parent
 SRC = ROOT / "_src"
 SITE_URL = "https://www.johnesyluccas.cl"  # dominio canónico (og:url, canonical)
 NAV_KEYS = ["inicio", "nosotros", "testimonios", "servicios", "contacto"]
+
+# Sitio en construcción: en _src/pages, lo que va entre <!-- en-construccion --> y <!-- /en-construccion -->
+# se reemplaza por el letrero (_src/partials/en-construccion.html) y no llega al HTML publicado.
+# Con False se publica todo el contenido (los marcadores se borran).
+EN_CONSTRUCCION = True
+CONSTRUCCION_RE = re.compile(r"<!--\s*en-construccion\s*-->.*?<!--\s*/en-construccion\s*-->", re.S)
+CONSTRUCCION_MARCAS_RE = re.compile(r"[ \t]*<!--\s*/?en-construccion\s*-->[ \t]*\n?")
 REQUIRED_META = ["title", "description", "path", "nav"]
 
 PARTIAL_RE = re.compile(r"\{\{>\s*([\w-]+)((?:\s+[\w-]+=\"[^\"]*\")*)\s*\}\}")
@@ -126,6 +133,12 @@ def build() -> dict[Path, str]:
     outputs: dict[Path, str] = {}
     for meta, body in pages:
         ctx = page_context(meta, meta["_src"])
+        if EN_CONSTRUCCION:
+            body = CONSTRUCCION_RE.sub("{{> en-construccion}}", body)
+        else:
+            body = CONSTRUCCION_MARCAS_RE.sub("", body)
+        if CONSTRUCCION_MARCAS_RE.search(body):  # quedó un marcador suelto: no publicar a medias
+            raise SystemExit(f"{ctx['source']}: marcador en-construccion sin su pareja")
         ctx["content"] = render(body, ctx, ctx["source"]).strip("\n")
         out_html = render(layout, ctx, "layout.html")
         path = meta["path"].strip("/")

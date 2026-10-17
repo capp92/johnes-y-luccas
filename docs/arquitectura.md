@@ -49,6 +49,12 @@ build.py                        ← generador (solo librería estándar de Pytho
   dominio, en una subcarpeta (GitHub Pages de proyecto) y abriendo los archivos con `file://`
   (`site.js` agrega `index.html` a los links cuando no hay servidor).
 - `python3 build.py --check` falla si algún archivo generado quedó desactualizado.
+- **Modo "en construcción"** (`EN_CONSTRUCCION` en `build.py`): lo que en una página va entre
+  `<!-- en-construccion -->` y `<!-- /en-construccion -->` se reemplaza por `{{> en-construccion}}` antes de
+  renderizar, así que no llega al HTML publicado. Con `False` solo se borran los marcadores y la salida es
+  idéntica a la de antes del letrero (verificado contra el commit `0282472`). Un marcador sin pareja detiene
+  el build, para no publicar a medias. Por qué en el build y no con CSS: con CSS el contenido igual quedaría
+  en el HTML (buscadores, "ver código fuente").
 
 ## Diseño
 
@@ -125,6 +131,7 @@ con N = píxeles del layout de Wix. Así el resultado es proporcional al origina
 | Blog: lista y entrada | `.blog`, `.post-card`, `.post`, `.recent-posts` | Medidas del original. En la entrada, los párrafos van sin margen y se separan con una línea vacía de 27 px, como en Wix. Autor/fecha (`.post-meta`) dejan 32 px para el avatar (en Wix es un gravatar en blanco). |
 | Compartir entrada | `_src/partials/post-share.html` | Facebook, X y LinkedIn por URL (`canonical-enc`) + botón "copiar enlace" (`data-copy-link` en `site.js`). Solo comparten bien con el sitio publicado en su dominio. |
 | Página sin header ni footer | `body_class: page-gracias` | Las "landing pages" de Wix ocultan el header y el footer; el CSS hace lo mismo con esa clase. |
+| Letrero "Sitio en construcción" | `_src/partials/en-construccion.html` (lo inserta `build.py`) | No es del original. Sección clara como "Áreas de servicios", monograma J&L y letrero con la textura de hormigón de las tarjetas bajo el gris de marca, con cinta de obra turquesa/negra (`::before`/`::after`). Si va justo después de un `.page-banner`, el monograma se oculta para no repetirlo. |
 
 `build.py` admite valores por defecto: `{{variable|valor}}`.
 
@@ -159,6 +166,13 @@ con N = píxeles del layout de Wix. Así el resultado es proporcional al origina
 3. Estilos propios de la página: bloque nuevo en `assets/css/site.css` (escritorio y móvil).
 4. `python3 build.py` y revisar con `python3 -m http.server`.
 5. Si la página debe aparecer en el menú o el footer: editar `_src/layout.html`.
+
+**Poner o quitar una página "en construcción"**
+1. Tapar: en `_src/pages/<pagina>.html`, encerrar lo que no debe verse entre `<!-- en-construccion -->` y
+   `<!-- /en-construccion -->` (hoy: todo lo que sigue al hero en `index.html` y al banner en
+   `equipo-trabajo.html` y `por-que-elegirnos.html`).
+2. Destapar una página: borrar sus dos marcadores. Destapar todo: `EN_CONSTRUCCION = False` en `build.py`.
+3. `python3 build.py`, revisar escritorio y móvil, y actualizar la tabla de estado del README.
 
 **Agregar una entrada al blog**
 1. Crear `_src/pages/post-<nombre>.html` copiando una entrada existente: `path: post/<slug-sin-tildes>/`,

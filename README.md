@@ -12,11 +12,14 @@ Las 16 páginas del sitio están copiadas. Se compararon contra el original con 
 píxeles por región) y se revisaron en móvil (390 px) sin desborde horizontal. Lo que difiere es deliberado
 o de tipografía: ver [docs/arquitectura.md](docs/arquitectura.md), "Diferencias deliberadas".
 
+🚧 **Hoy se publica en modo "Sitio en construcción"** (ver la sección más abajo): en Inicio solo se ve el
+hero y en las páginas de Nosotros solo el banner; el resto está tapado por un letrero.
+
 | Página | Ruta | Estado |
 |---|---|---|
-| Inicio | `/` | ✅ |
-| Equipo de trabajo | `/equipo-trabajo/` | ✅ |
-| Por qué elegirnos | `/por-que-elegirnos/` | ✅ |
+| Inicio | `/` | ✅ — 🚧 bajo el hero, letrero "Sitio en construcción" |
+| Equipo de trabajo | `/equipo-trabajo/` | ✅ — 🚧 bajo el banner, letrero |
+| Por qué elegirnos | `/por-que-elegirnos/` | ✅ — 🚧 bajo el banner, letrero |
 | Testimonios | `/testimonios/` | ✅ |
 | Servicios | `/servicios-contabilidad/` | ✅ |
 | 01 Contabilidad financiera y asesoría tributaria | `/contabilidad-financiera-tributaria/` | ✅ (incluye popup "Contáctanos") |
@@ -75,6 +78,19 @@ location = "/post/sii-lanza-nueva-aplicación-móvil-que-permite-emitir-y-valida
   return 301 /post/sii-lanza-nueva-aplicacion-movil-que-permite-emitir-y-validar-facturas-a-traves-del-celular/;
 }
 ```
+
+## Sitio en construcción
+
+Desde el 2026-10-17, en Inicio (debajo del hero) y en las páginas de Nosotros (Equipo de trabajo y Por qué
+elegirnos, debajo del banner) se muestra un letrero "Sitio en construcción" en lugar del contenido. El
+contenido **no se borró**: sigue en `_src/pages/`, entre los comentarios `<!-- en-construccion -->` y
+`<!-- /en-construccion -->`, y `build.py` lo deja fuera del HTML publicado (tampoco se ve con "ver código
+fuente").
+
+- **Abrir todo el sitio:** en `build.py` poner `EN_CONSTRUCCION = False` y correr `python3 build.py`.
+- **Abrir una sola página:** borrar sus dos comentarios marcadores y correr `python3 build.py`.
+- **Tapar otra página:** encerrar entre los marcadores lo que deba ocultarse y correr `python3 build.py`.
+- **Cambiar el texto del letrero:** `_src/partials/en-construccion.html` (es uno solo para todas las páginas).
 
 ## Formularios
 

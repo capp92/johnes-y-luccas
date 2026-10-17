@@ -669,6 +669,35 @@ textarea.form__field { height: 130px; margin-bottom: 8px; padding: 10.5px 10px 3
 .gracias__btn { position: absolute; left: 419px; top: 384px; width: 142px; height: 40px; }
 
 /* ==========================================================================
+   SITIO EN CONSTRUCCIÓN (_src/partials/en-construccion.html; lo inserta build.py)
+   Mismo lenguaje que "Áreas de servicios": sección clara, monograma y título Anton. El letrero usa
+   la textura de hormigón de las tarjetas bajo el gris de marca y una cinta de obra en turquesa.
+   ========================================================================== */
+.en-construccion { padding: 86px 0 110px; background: var(--c-seccion-clara); text-align: center; }
+/* Bajo un banner de subpágina el monograma ya está en el banner: no repetirlo. */
+.page-banner + .en-construccion { padding-top: 80px; }
+.page-banner + .en-construccion .jl-badge { display: none; }
+.page-banner + .en-construccion .en-construccion__letrero { margin-top: 0; }
+.en-construccion__letrero {
+  position: relative; width: 760px; margin: 44px auto 0; padding: 70px 80px 74px;
+  background: linear-gradient(rgba(51, 58, 59, .9), rgba(51, 58, 59, .9)), url("../img/textura-hormigon.jpg") center / 440px 480px;
+  box-shadow: 0 22px 44px -18px rgba(25, 29, 29, .45);
+}
+.en-construccion__letrero::before, .en-construccion__letrero::after {
+  content: ""; position: absolute; left: 0; right: 0; height: 12px;
+  background: repeating-linear-gradient(-45deg, var(--c-turquesa-medio) 0 14px, var(--c-negro) 14px 28px);
+}
+.en-construccion__letrero::before { top: 0; }
+.en-construccion__letrero::after { bottom: 0; }
+.en-construccion__titulo { font: 52px/1.3 var(--f-titulo); letter-spacing: .02em; color: var(--c-humo); }
+.en-construccion__titulo::after { content: ""; display: block; width: 64px; height: 3px; margin: 20px auto 0; background: var(--c-turquesa); }
+.en-construccion__texto { max-width: 500px; margin: 24px auto 0; font: var(--w-texto) 20px/1.55 var(--f-texto); color: rgba(247, 247, 247, .88); }
+.en-construccion__contacto { margin-top: 30px; font: var(--w-texto) 16px/1.75 var(--f-texto); color: rgba(247, 247, 247, .72); }
+.en-construccion__contacto a { color: var(--c-turquesa-medio); font-weight: var(--w-texto-bold); text-decoration: none; }
+.en-construccion__contacto a:hover, .en-construccion__contacto a:focus-visible { color: var(--c-celeste); }
+.en-construccion__sep { display: inline-block; width: 4px; height: 4px; margin: 0 14px; border-radius: 50%; background: var(--c-gris); vertical-align: middle; }
+
+/* ==========================================================================
    MÓVIL (< 980px) — replica la versión móvil de Wix (layout de 320px escalado)
    ========================================================================== */
 @media (max-width: 979px) {
@@ -996,6 +1025,15 @@ textarea.form__field { height: 130px; margin-bottom: 8px; padding: 10.5px 10px 3
   .gracias__text { font-size: calc(30 * var(--m)); line-height: 1.45; }
   .gracias__firma { margin-top: calc(20 * var(--m)); }
   .gracias__btn { width: calc(142 * var(--m)); height: calc(40 * var(--m)); margin: calc(60 * var(--m)) auto 0; }
+  /* --- Sitio en construcción (móvil) --- */
+  .en-construccion { padding: calc(30 * var(--m)) calc(14 * var(--m)) calc(44 * var(--m)); }
+  .en-construccion__letrero { width: auto; margin-top: calc(22 * var(--m)); padding: calc(38 * var(--m)) calc(18 * var(--m)) calc(42 * var(--m)); }
+  .en-construccion__letrero::before, .en-construccion__letrero::after { height: calc(8 * var(--m)); }
+  .en-construccion__titulo { font-size: calc(30 * var(--m)); }
+  .en-construccion__titulo::after { width: calc(44 * var(--m)); margin-top: calc(14 * var(--m)); }
+  .en-construccion__texto { margin-top: calc(16 * var(--m)); font-size: calc(15 * var(--m)); }
+  .en-construccion__contacto { margin-top: calc(18 * var(--m)); font-size: calc(14 * var(--m)); }
+  .en-construccion__sep { display: block; height: 0; margin: 0; }
 }
 
 /* Teléfonos medianos/tablets: el escalado se topa en 1.6px y centramos columnas. */

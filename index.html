@@ -98,67 +98,15 @@
   </div>
 </section>
 
-<section class="home-areas" aria-labelledby="areas-title">
+<!-- Letrero "Sitio en construcción". build.py lo pone en lugar de los bloques de _src/pages marcados
+     con los comentarios en-construccion y /en-construccion (mientras EN_CONSTRUCCION sea True). -->
+<section class="en-construccion" aria-labelledby="en-construccion-titulo">
   <a class="jl-badge" href="./" aria-label="Johnes &amp; Luccas — Inicio"><span class="j">J</span><span class="amp">&amp;</span><span class="l">L</span></a>
 
-  <h2 class="home-areas__title" id="areas-title">ÁREAS DE SERVICIOS</h2>
-  <div class="area-cards">
-    <a class="area-card area-card--claro" href="./contabilidad-financiera-tributaria/">
-      <img class="area-card__bg" src="./assets/img/textura-hormigon.jpg" alt="" width="440" height="480" loading="lazy">
-      <span class="area-card__num float-in">01</span>
-      <span class="area-card__label">Contabilidad Financiera y Asesoría Tributaria</span>
-    </a>
-    <a class="area-card area-card--oscuro" href="./contraloria-contable-y-financiera/">
-      <img class="area-card__bg" src="./assets/img/textura-papel.jpg" alt="" width="440" height="480" loading="lazy">
-      <span class="area-card__num float-in">02</span>
-      <span class="area-card__label">Contraloría Financiera y Tributaria</span>
-    </a>
-    <a class="area-card area-card--claro" href="./consultoria/">
-      <img class="area-card__bg" src="./assets/img/textura-hormigon.jpg" alt="" width="440" height="480" loading="lazy">
-      <span class="area-card__num float-in">03</span>
-      <span class="area-card__label">Consultoría</span>
-    </a>
-  </div>
-  <a class="btn-outline home-areas__cta" href="./servicios-contabilidad/">Detalles</a>
-</section>
-
-<section class="home-testimonio parallax" aria-labelledby="testimonio-title">
-  <div class="parallax__bg" aria-hidden="true"><img class="parallax__img" src="./assets/img/home/testimonio-oficina.jpg" alt="" width="1920" height="800" loading="lazy"></div>
-  <div class="home-testimonio__text">
-    <h2 id="testimonio-title">Testimonio.</h2>
-    <blockquote>
-      <p>"El equipo de trabajo, su visión y los consejos empresariales de Johnes &amp; Luccas me dan plena confianza. La excelente calidad de la información de sus reportes mensuales, nos entregan una constante oportunidad para mejorar"</p>
-    </blockquote>
-    <p class="home-testimonio__author">Juan Eduardo Neueschwander, Socio fundador Autobahn</p>
-  </div>
-  <a class="btn-outline btn-outline--filled" href="./testimonios/">Ver Más</a>
-</section>
-
-<section class="home-contacto" aria-labelledby="contacto-title">
-  <div class="wrap">
-    <h2 class="home-contacto__title" id="contacto-title">CONTÁCTENOS.</h2>
-    <div class="contact-info">
-      <p class="contact-info__label">Dirección</p>
-      <p>Estoril 200, Of. 526, Las Condes</p>
-      <p>Santiago - Chile</p>
-      <div class="gap"></div>
-      <p class="contact-info__label">E-mail</p>
-      <p class="contact-info__mail"><a href="mailto:contacto@johnesyluccas.cl">contacto@johnesyluccas.cl</a></p>
-      <div class="gap gap--mail"></div>
-      <p class="contact-info__label contact-info__label--phone">Teléfono</p>
-      <p class="contact-info__phones"><a href="tel:+56232205850">+(56) 2 3220 5850</a><br><a href="tel:+56232205857">+(56) 2 3220 5857</a></p>
-    </div>
-    <form class="form " action="#" method="post" data-contact-form data-origin="Inicio" data-success="¡Gracias! Mensaje enviado." data-redirect="">
-  <input class="form__field" type="text" name="nombre" placeholder="Nombre *" aria-label="Nombre" autocomplete="name" required>
-  <input class="form__field" type="email" name="email" placeholder="E-mail *" aria-label="E-mail" autocomplete="email" required>
-  <input class="form__field" type="text" name="asunto" placeholder="Asunto" aria-label="Asunto">
-  <textarea class="form__field" name="mensaje" placeholder="Mensaje" aria-label="Mensaje"></textarea>
-  <div class="form__footer">
-    <p class="form__status" role="status" aria-live="polite"></p>
-    <button class="form__submit" type="submit">Enviar</button>
-  </div>
-</form>
-
+  <div class="en-construccion__letrero">
+    <h2 class="en-construccion__titulo" id="en-construccion-titulo">SITIO EN CONSTRUCCIÓN</h2>
+    <p class="en-construccion__texto">Estamos renovando esta sección para entregarle una mejor experiencia. Muy pronto estará disponible.</p>
+    <p class="en-construccion__contacto">Mientras tanto, contáctenos<br><a href="tel:+56232205850">+(56) 2 3220 5850</a><span class="en-construccion__sep" aria-hidden="true"></span><a href="mailto:contacto@johnesyluccas.cl">contacto@johnesyluccas.cl</a></p>
   </div>
 </section>
 </main>
