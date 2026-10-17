@@ -1,0 +1,10 @@
+<form class="form {{form-class}}" action="#" method="post" data-contact-form data-origin="{{origen}}" data-success="{{exito}}" data-redirect="{{redirect}}">
+  <input class="form__field" type="text" name="nombre" placeholder="Nombre *" aria-label="Nombre" autocomplete="name" required>
+  <input class="form__field" type="email" name="email" placeholder="E-mail *" aria-label="E-mail" autocomplete="email" required>
+  <input class="form__field" type="text" name="asunto" placeholder="Asunto" aria-label="Asunto">
+  <textarea class="form__field" name="mensaje" placeholder="{{mensaje}}" aria-label="Mensaje"{{mensaje-required}}></textarea>
+  <div class="form__footer">
+    <p class="form__status" role="status" aria-live="polite"></p>
+    <button class="form__submit" type="submit">Enviar</button>
+  </div>
+</form>

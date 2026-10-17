@@ -1,0 +1,109 @@
+{
+  "_doc": "Manifiesto de assets copiados de www.johnesyluccas.cl (Wix). 'src' = URL descargada (con transformación Wix para tamaño web); 'original' = archivo original sin transformar. Ver tools/descargar_assets.py.",
+  "images": [
+    {
+      "dest": "assets/img/favicon.png",
+      "src": "https://static.wixstatic.com/media/a787a1_5daa6ab6a55442b48b3f5eac6d25e8c3~mv2.png",
+      "original": "https://static.wixstatic.com/media/a787a1_5daa6ab6a55442b48b3f5eac6d25e8c3~mv2.png",
+      "note": "Favicon del sitio"
+    },
+    {
+      "dest": "assets/img/og-johnes-luccas.jpg",
+      "src": "https://static.wixstatic.com/media/a787a1_c8f06f16f9bc4c63ae094fdc8620866e~mv2.png",
+      "original": "https://static.wixstatic.com/media/a787a1_c8f06f16f9bc4c63ae094fdc8620866e~mv2.png",
+      "convert": "jpg",
+      "note": "Imagen para redes (og:image), 2120x1192"
+    },
+    {
+      "dest": "assets/img/logo-johnes-luccas.png",
+      "src": "https://static.wixstatic.com/media/a787a1_44fd4e0a50a54555b12d7ae7fb31fbc7~mv2.png",
+      "original": "https://static.wixstatic.com/media/a787a1_44fd4e0a50a54555b12d7ae7fb31fbc7~mv2.png",
+      "note": "Logo usado en el JSON-LD LocalBusiness"
+    },
+    {
+      "dest": "assets/img/footer-sii.png",
+      "src": "https://static.wixstatic.com/media/d59c19_025482e5fd1149cd82b53c9fabc03d32~mv2.png/v1/crop/x_82,y_0,w_385,h_266/fill/w_385,h_266,al_c/SII.png",
+      "original": "https://static.wixstatic.com/media/d59c19_025482e5fd1149cd82b53c9fabc03d32~mv2.png",
+      "note": "Logo SII del footer (con el mismo recorte que el original)"
+    },
+    {
+      "dest": "assets/img/footer-banco-central.png",
+      "src": "https://static.wixstatic.com/media/d59c19_dcc8c6b619074b0bb5c76d32cc2bf5c7~mv2.png",
+      "original": "https://static.wixstatic.com/media/d59c19_dcc8c6b619074b0bb5c76d32cc2bf5c7~mv2.png",
+      "note": "Logo Banco Central del footer"
+    },
+    {
+      "dest": "assets/img/home/hero-ciudad-moderna.jpg",
+      "src": "https://static.wixstatic.com/media/813b164e6ecd49b0b09f5f9913d34577.jpg/v1/fit/w_2560,h_2560,q_85/hero.jpg",
+      "original": "https://static.wixstatic.com/media/813b164e6ecd49b0b09f5f9913d34577.jpg",
+      "note": "Fondo parallax del hero de la home (3700x2466)"
+    },
+    {
+      "dest": "assets/img/home/testimonio-oficina.jpg",
+      "src": "https://static.wixstatic.com/media/1e47b2_ea7902ca534d442e894f2e2e03cf3b43.jpg",
+      "original": "https://static.wixstatic.com/media/1e47b2_ea7902ca534d442e894f2e2e03cf3b43.jpg",
+      "note": "Fondo parallax del testimonio (1920x800)"
+    },
+    {
+      "dest": "assets/img/textura-hormigon.jpg",
+      "src": "https://static.wixstatic.com/media/a8e1f3e15ccb41b88df85a10bb90531a.jpg/v1/fill/w_440,h_480,al_c,q_85/hormigon.jpg",
+      "original": "https://static.wixstatic.com/media/a8e1f3e15ccb41b88df85a10bb90531a.jpg",
+      "note": "Textura de las tarjetas 01 y 03"
+    },
+    {
+      "dest": "assets/img/textura-papel.jpg",
+      "src": "https://static.wixstatic.com/media/5cf87af427f54044b775e09a8dc5e4c9.png/v1/fill/w_440,h_480,al_c/papel.png",
+      "original": "https://static.wixstatic.com/media/5cf87af427f54044b775e09a8dc5e4c9.png",
+      "convert": "jpg",
+      "note": "Textura de la tarjeta 02 (PNG original de 8 MB)"
+    }
+  ],
+  "fonts": [
+    {
+      "dest": "assets/fonts/optimus-princeps.woff2",
+      "src": "https://static.wixstatic.com/ufonts/d59c19_3b02f5c5795549fba273da57b797e6c0/woff2/file.woff2",
+      "note": "Fuente del logo, subida por el dueño del sitio a Wix"
+    },
+    {
+      "dest": "assets/fonts/optimus-princeps.woff",
+      "src": "https://static.wixstatic.com/ufonts/d59c19_3b02f5c5795549fba273da57b797e6c0/woff/file.woff"
+    },
+    {
+      "dest": "assets/fonts/anton-400.woff2",
+      "src": "https://static.parastorage.com/tag-bundler/api/v1/fonts-cache/googlefont/woff2/s/anton/v11/1Ptgg87LROyAm3Kz-C8CSKlv.woff2",
+      "note": "Anton (OFL), misma versión que sirve Wix (v11) para calzar métricas"
+    },
+    {
+      "dest": "assets/fonts/cormorant-garamond-300.woff2",
+      "src": "https://static.parastorage.com/tag-bundler/api/v1/fonts-cache/googlefont/woff2/s/cormorantgaramond/v5/iEjm9hVxcattz37Y8gZwVSNMxVe3WGf96EDbCaLCBKE.woff2",
+      "note": "Cormorant Garamond Light (OFL), versión Wix v5"
+    },
+    {
+      "dest": "assets/fonts/roboto-700.woff2",
+      "src": "https://static.parastorage.com/tag-bundler/api/v1/fonts-cache/googlefont/woff2/s/roboto/v18/97uahxiqZRoncBaCEI3aW1tXRa8TVwTICgirnJhmVJw.woff2",
+      "note": "Roboto Bold (Apache 2.0), versión Wix v18 (tagline del logo)"
+    },
+    {
+      "dest": "assets/fonts/barlow-400.woff2",
+      "src": "https://static.parastorage.com/tag-bundler/api/v1/fonts-cache/googlefont/woff2/s/barlow/v1/2woyxyDnPU0v4IiqYU9D1g.woff2",
+      "note": "Barlow (OFL): la cara 'bold' de 'barlow-extralight' de Wix = Barlow Regular (subtítulo del hero)"
+    }
+  ],
+  "google_fonts": [
+    {
+      "family": "Barlow",
+      "weight": 300,
+      "dest": "assets/fonts/barlow-300.woff2"
+    },
+    {
+      "family": "Barlow",
+      "weight": 500,
+      "dest": "assets/fonts/barlow-500.woff2"
+    },
+    {
+      "family": "Barlow",
+      "weight": 600,
+      "dest": "assets/fonts/barlow-600.woff2"
+    }
+  ]
+}
