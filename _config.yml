@@ -1,0 +1,10 @@
+# GitHub Pages ("Deploy from a branch": main, carpeta raíz) arma el sitio con Jekyll a partir de este repo.
+# Solo debe publicarse el sitio. Jekyll ya omite lo que empieza con "_" o "." (p. ej. _src/, que guarda el
+# contenido tapado por el letrero "en construcción"); aquí se omite además lo interno. En particular docs/,
+# que trae capturas del sitio original con ese mismo contenido. Ver README, "Publicar".
+exclude:
+  - docs
+  - tools
+  - build.py
+  - README.md
+  - CLAUDE.md

@@ -67,8 +67,43 @@ GitHub Pages, Netlify…). Las URLs son carpetas (`/equipo-trabajo/`), igual que
 `/` final. Los `canonical` y `og:url` apuntan a `https://www.johnesyluccas.cl` (constante `SITE_URL` en
 `build.py`).
 
+### GitHub Pages + dominio en Cloudflare
+
+Estado al 2026-10-17: el repo es **público** y Pages está activado (rama `main`, raíz) en
+<https://capp92.github.io/johnes-y-luccas/>; falta el dominio (pasos 3 a 6). `johnesyluccas.cl` ya usa los
+DNS de Cloudflare (`anton`/`carla.ns.cloudflare.com`) y su zona tiene los registros del correo (Microsoft 365).
+
+1. ✅ **Requisito:** con GitHub gratis, Pages solo funciona en repos públicos, así que el repo se hizo público
+   (2026-10-17). Consecuencia: en github.com se ven `_src/` (incluido lo que tapa el letrero "en
+   construcción") y `docs/`. El sitio publicado no los incluye (`_config.yml`).
+2. ✅ Repo → Settings → Pages → Source: **Deploy from a branch** → `main` / `(root)` → Save. Queda en
+   `https://capp92.github.io/johnes-y-luccas/` (los links son relativos, así que funciona en esa subcarpeta).
+3. (Recomendado) Verificar el dominio: perfil de GitHub → Settings → Pages → *Add a domain* →
+   `johnesyluccas.cl`, y agregar en Cloudflare el TXT que indique GitHub.
+4. Repo → Settings → Pages → Custom domain: **`www.johnesyluccas.cl`** (el mismo de `SITE_URL`). GitHub
+   agrega un commit con el archivo `CNAME`: hacer `git pull` antes de seguir trabajando en local.
+5. Cloudflare → `johnesyluccas.cl` → DNS, todos en **DNS only** (nube gris):
+
+   | Tipo | Nombre | Valor | Hoy (Wix) |
+   |---|---|---|---|
+   | A | `@` | `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153` (4 registros) | A `185.230.63.107` (borrar) |
+   | CNAME | `www` | `capp92.github.io` | CNAME `johnesyluccas.cl` |
+   | AAAA (opcional) | `@` | `2606:50c0:8000::153`, `…8001::153`, `…8002::153`, `…8003::153` | — |
+
+   **No tocar** MX, TXT (SPF, `MS=`), `autodiscover`, `selector1/2._domainkey`, `lyncdiscover`, `sip`,
+   `enterprise*` ni los SRV: son el correo y Teams de Microsoft 365.
+6. Cuando Settings → Pages muestre el dominio verificado y el certificado listo (minutos, hasta 24 h),
+   marcar **Enforce HTTPS**. Si después se activa el proxy de Cloudflare (nube naranja), usar SSL/TLS
+   "Full (strict)", nunca "Flexible" (bucle de redirecciones).
+
+Las URLs de Wix sin `/` final (`/equipo-trabajo`) siguen funcionando: GitHub Pages redirige a la carpeta.
+Las de las dos entradas del blog (con tildes) darán 404, porque Pages no permite redirecciones de servidor.
+
+### Redirecciones en un servidor propio
+
 Las entradas del blog tenían URLs con tildes en Wix y aquí no. Si el sitio reemplaza al original en el
-mismo dominio, redirigir las antiguas (ejemplo para nginx; comprobar después con `curl -I`):
+mismo dominio desde un servidor propio, redirigir las antiguas (ejemplo para nginx; comprobar después con
+`curl -I`):
 
 ```nginx
 location = "/post/se-informa-la-circulación-de-correos-electrónicos-falsos" {

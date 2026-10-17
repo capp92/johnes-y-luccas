@@ -34,6 +34,7 @@ assets/js/search-index.js       ← GENERADO por build.py (índice del buscador)
 assets/img/, assets/fonts/      ← descargados con tools/descargar_assets.py
 tools/assets.json               ← manifiesto: de qué URL de Wix salió cada asset
 build.py                        ← generador (solo librería estándar de Python)
+_config.yml                     ← GitHub Pages: qué NO publicar (docs/, tools/, build.py, *.md)
 ```
 
 ### Generador (`build.py`)
