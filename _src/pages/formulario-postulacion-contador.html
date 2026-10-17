@@ -1,0 +1,83 @@
+---
+title: Formulario Postulación | Contador | Johnes & Luccas | Chile
+description: Formulario de solicitud de empleo para postular al cargo de Contador Auditor en Johnes & Luccas.
+path: formulario-postulacion-contador/
+nav: contacto
+body_class: page-postulacion
+search_title: Formulario de postulación
+keywords: postular postulación empleo solicitud contador auditor cv
+---
+<section class="page-banner trabaja-banner postulacion-banner">
+  <img class="page-banner__img" src="{{root}}assets/img/trabaja/banner-trabaja.jpg" alt="" width="2560" height="1920" fetchpriority="high">
+  <div class="page-banner__inner">
+    {{> jl-badge}}
+    <h1 class="page-banner__title">TRABAJA CON NOSOTROS</h1>
+  </div>
+</section>
+
+<!-- En el original este formulario es un widget de 123FormBuilder (iframe atado a la instancia de Wix).
+     Aquí es una réplica SOLO VISUAL con los mismos campos: no envía nada (decisión de Cristóbal,
+     2026-10-17). Para activarlo: agregar data-contact-form al <form> y type="submit" al botón
+     (ver docs/arquitectura.md, "Formulario de postulación"). -->
+<div class="postulacion">
+  <form class="app-form" action="#" method="post" data-origin="Postulación Contador" data-subject="Postulación: Contador Auditor" data-success="¡Gracias! Recibimos su postulación." data-redirect="">
+    <h2 class="app-form__title">Formulario de Solicitud de Empleo</h2>
+    <p class="app-form__sub">Gracias por su interés en trabajar con nosotros.</p>
+    <hr class="app-form__hr">
+
+    <div class="app-form__row">
+      <span class="app-form__label app-form__label--short" id="lbl-nombre">Nombre completo<span class="req" aria-hidden="true">*</span></span>
+      <div class="app-form__control app-form__control--pair">
+        <input type="text" name="nombre" placeholder="Nombre" aria-labelledby="lbl-nombre" data-label="Nombre" autocomplete="given-name" required>
+        <input type="text" name="apellido" placeholder="Apellido" aria-label="Apellido" data-label="Apellido" autocomplete="family-name" required>
+      </div>
+    </div>
+    <div class="app-form__row">
+      <label class="app-form__label app-form__label--short" for="app-email">Email<span class="req" aria-hidden="true">*</span></label>
+      <div class="app-form__control"><input type="email" id="app-email" name="email" data-label="Email" autocomplete="email" required></div>
+    </div>
+    <div class="app-form__row">
+      <label class="app-form__label" for="app-puesto">¿Para qué posición se está postulando?<span class="req" aria-hidden="true">*</span></label>
+      <div class="app-form__control"><select id="app-puesto" name="posicion" data-label="Posición" required><option>Puesto 1</option><option>Puesto 2</option><option>Puesto 3</option></select></div>
+    </div>
+    <div class="app-form__row">
+      <label class="app-form__label" for="app-fecha">Fecha disponible para inicio<span class="req" aria-hidden="true">*</span></label>
+      <div class="app-form__control app-form__control--date"><input type="date" id="app-fecha" name="fecha_inicio" data-label="Fecha disponible para inicio" required></div>
+    </div>
+    <fieldset class="app-form__row">
+      <legend class="app-form__label">¿Cuál es su situación laboral actual?<span class="req" aria-hidden="true">*</span></legend>
+      <div class="app-form__control app-form__radios">
+        <label><input type="radio" name="situacion" value="Empleado" data-label="Situación laboral" required> Empleado</label>
+        <label><input type="radio" name="situacion" value="Particular"> Particular</label>
+        <label><input type="radio" name="situacion" value="Desempleado"> Desempleado</label>
+        <label><input type="radio" name="situacion" value="Estudiante"> Estudiante</label>
+      </div>
+    </fieldset>
+    <div class="app-form__row">
+      <label class="app-form__label" for="app-cv">Envíenos su CV a través de una URL:</label>
+      <div class="app-form__control"><input type="url" id="app-cv" name="cv_url" data-label="CV (URL)"></div>
+    </div>
+    <fieldset class="app-form__row">
+      <legend class="app-form__label">¿Le gustaría dar referencias?</legend>
+      <div class="app-form__control app-form__radios app-form__radios--1col">
+        <label><input type="radio" name="referencias" value="Sí" data-label="Da referencias"> Sí</label>
+        <label><input type="radio" name="referencias" value="No"> No</label>
+      </div>
+    </fieldset>
+    <div class="app-form__row">
+      <span class="app-form__label app-form__label--short" id="lbl-ref">Nombre completo</span>
+      <div class="app-form__control app-form__control--pair">
+        <input type="text" name="ref_nombre" placeholder="Nombre" aria-labelledby="lbl-ref" data-label="Referencia: nombre">
+        <input type="text" name="ref_apellido" placeholder="Apellido" aria-label="Apellido de la referencia" data-label="Referencia: apellido">
+      </div>
+    </div>
+    <div class="app-form__row">
+      <label class="app-form__label app-form__label--short" for="app-ref-email">Email</label>
+      <div class="app-form__control app-form__control--half"><input type="email" id="app-ref-email" name="ref_email" data-label="Referencia: email"></div>
+    </div>
+    <div class="app-form__footer">
+      <button class="app-form__submit form__submit" type="button">Enviar</button>
+      <p class="form__status" role="status" aria-live="polite"></p>
+    </div>
+  </form>
+</div>

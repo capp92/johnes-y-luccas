@@ -2,8 +2,9 @@
  *
  * Contenido:
  *   1. Parallax de fondos (réplica del efecto "Parallax" de Wix)
- *   2. Animación de entrada "floatIn" (números 01/02/03 de la home)
+ *   2. Animaciones de entrada "floatIn"/"fadeIn"
  *   3. Menú: submenús accesibles + menú móvil a pantalla completa
+ *      (+ popup de contacto, pestañas/buscador de FAQ y "copiar enlace" del blog)
  *   4. Botón "volver arriba" (móvil)
  *   5. Buscador del header (índice en assets/js/search-index.js)
  *   6. Formularios de contacto (endpoint configurable o mailto)
@@ -111,6 +112,14 @@
       document.querySelectorAll('.has-submenu.is-open').forEach(function (li) { li.classList.remove('is-open'); });
     }
   });
+  // Al cruzar el breakpoint (achicar la ventana, girar una tablet) el menú cambia de layout y sus
+  // fundidos mostrarían un instante el menú móvil o los submenús. Sin transiciones mientras dura.
+  var resizeTimer;
+  window.addEventListener('resize', function () {
+    root.classList.add('no-anim');
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () { root.classList.remove('no-anim'); }, 200);
+  });
 
   /* Popup "CONTÁCTANOS" de las páginas de servicio (<dialog> nativo) ----------- */
   document.querySelectorAll('[data-open-dialog]').forEach(function (btn) {
@@ -122,6 +131,67 @@
     dlg.addEventListener('click', function (e) {
       // Clic en el fondo (fuera del contenido) o en el botón cerrar
       if (e.target === dlg || e.target.closest('[data-close-dialog]')) dlg.close();
+    });
+  });
+
+  /* Blog: botón "copiar enlace" de la barra de compartir (_src/partials/post-share.html) */
+  document.querySelectorAll('[data-copy-link]').forEach(function (btn) {
+    var status = btn.parentNode.querySelector('.post-share__status');
+    var timer;
+    btn.addEventListener('click', function () {
+      var url = btn.getAttribute('data-copy-link') || window.location.href;
+      function show(msg) {
+        if (!status) return;
+        status.textContent = msg;
+        clearTimeout(timer);
+        timer = setTimeout(function () { status.textContent = ''; }, 2500);
+      }
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(url).then(function () { show('Enlace copiado'); }, function () { window.prompt('Copie el enlace:', url); });
+      } else {
+        window.prompt('Copie el enlace:', url);
+      }
+    });
+  });
+
+  /* Preguntas frecuentes: pestañas + buscador (el acordeón es <details>, sin JS) */
+  document.querySelectorAll('[data-faq]').forEach(function (faq) {
+    var tabs = Array.prototype.slice.call(faq.querySelectorAll('[role="tab"]'));
+    var panels = tabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
+    function select(i, focus) {
+      tabs.forEach(function (t, j) {
+        var on = i === j;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        panels[j].hidden = !on;
+      });
+      if (focus) tabs[i].focus();
+    }
+    tabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { select(i); });
+      t.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+          e.preventDefault();
+          select((i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length, true);
+        }
+      });
+    });
+    var input = faq.querySelector('[data-faq-search]');
+    var results = faq.querySelector('[data-faq-results]');
+    if (!input) return;
+    input.addEventListener('input', function () {
+      var q = normalize(input.value).trim();
+      var words = q ? q.split(/\s+/) : [];
+      var count = 0;
+      faq.classList.toggle('is-searching', words.length > 0);
+      faq.querySelectorAll('.faq-item').forEach(function (item) {
+        var hay = normalize(item.textContent);
+        var match = words.every(function (w) { return hay.indexOf(w) !== -1; });
+        item.hidden = words.length > 0 && !match;
+        if (words.length && match) count++;
+      });
+      results.hidden = !words.length;
+      results.textContent = count === 1 ? '1 resultado' : count + ' resultados';
     });
   });
 
@@ -209,10 +279,20 @@
       status.classList.remove('is-error');
 
       if (!FORM_ENDPOINT) {
-        var subject = data.get('asunto') || ('Contacto desde el sitio web (' + data.get('origen') + ')');
-        var body = 'Nombre: ' + data.get('nombre') + '\nE-mail: ' + data.get('email') +
-          (data.get('telefono') ? '\nTeléfono: ' + data.get('telefono') : '') +
-          '\n\n' + (data.get('mensaje') || '');
+        var subject = data.get('asunto') || form.getAttribute('data-subject') ||
+          ('Contacto desde el sitio web (' + data.get('origen') + ')');
+        // Cuerpo del correo: cada campo con su rótulo (data-label o aria-label); el mensaje va al final.
+        var lines = [];
+        var seen = {};
+        Array.prototype.forEach.call(form.elements, function (el) {
+          if (!el.name || seen[el.name] || el.name === 'mensaje' || el.name === 'asunto' || el.type === 'submit') return;
+          seen[el.name] = true;
+          var value = data.getAll(el.name).join(', ');
+          if (!value) return;
+          var label = el.getAttribute('data-label') || el.getAttribute('aria-label') || el.name;
+          lines.push(label + ': ' + value);
+        });
+        var body = lines.join('\n') + (data.get('mensaje') ? '\n\n' + data.get('mensaje') : '');
         window.location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + encodeURIComponent(subject) +
           '&body=' + encodeURIComponent(body);
         status.textContent = 'Se abrió tu programa de correo para enviar el mensaje.';

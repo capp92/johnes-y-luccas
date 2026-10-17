@@ -25,6 +25,7 @@ import json
 import re
 import sys
 from pathlib import Path
+from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parent
 SRC = ROOT / "_src"
@@ -87,6 +88,7 @@ def page_context(meta: dict[str, str], src_name: str) -> dict[str, str]:
     ctx["description"] = html.escape(meta["description"])
     ctx["root"] = "../" * depth if depth else "./"
     ctx["canonical"] = f"{SITE_URL}/{path + '/' if path else ''}"
+    ctx["canonical-enc"] = quote(ctx["canonical"], safe="")  # para ?url= de los botones de compartir
     ctx["site-url"] = SITE_URL
     ctx["source"] = f"_src/pages/{src_name}"
     ctx["body-class"] = meta.get("body_class", "")

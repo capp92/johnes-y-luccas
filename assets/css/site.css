@@ -25,6 +25,7 @@
 @font-face { font-family: "Cormorant Garamond"; src: url("../fonts/cormorant-garamond-300.woff2") format("woff2"); font-weight: 300; font-style: normal; font-display: swap; }
 @font-face { font-family: "Roboto"; src: url("../fonts/roboto-700.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
 @font-face { font-family: "Open Sans"; src: url("../fonts/open-sans-italic-400.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Open Sans"; src: url("../fonts/open-sans-400.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
 
 :root {
   --c-blanco: #ffffff;
@@ -137,6 +138,9 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .submenu ul { list-style: none; margin: 0; padding: 0; background: var(--c-tinta); min-width: 100%; }
 .submenu a { display: block; padding: 0 7px; font: var(--w-texto) 14px/29px var(--f-texto); color: var(--c-humo); text-align: center; text-decoration: none; white-space: nowrap; transition: color .4s ease; }
 .submenu a:hover, .submenu a:focus-visible { color: var(--c-turquesa-medio); }
+/* Mientras se redimensiona (site.js agrega .no-anim): al cruzar el breakpoint, los fundidos harían
+   aparecer un instante el menú móvil o los submenús de escritorio. */
+.no-anim .main-nav, .no-anim .submenu { transition: none !important; }
 
 .menu-toggle { display: none; }
 
@@ -490,6 +494,181 @@ textarea.form__field { height: 130px; margin-bottom: 8px; padding: 10.5px 10px 3
 .contact-dialog__foot a { color: #000; text-decoration: none; }
 
 /* ==========================================================================
+   CONTACTO
+   ========================================================================== */
+.contacto-banner { --banner-h: 306px; --badge-x: 451px; --badge-y: 72px; --title-y: 167px; --banner-op: .64; }
+.contacto-banner .page-banner__title { line-height: 70.5px; }
+.contacto-body { --stage-h: 666px; }
+.contacto-lead { font: 32px/41.6px var(--f-titulo); letter-spacing: .64px; color: var(--c-tinta); }
+.contacto-lead span { display: block; }
+.contacto-lead .sep { height: 13px; }
+.contacto-mapa { border: 0; display: block; }
+/* Datos de contacto sobre fondo claro: líneas de 19px, separadores de 22.4/20.5px (medido). */
+.contact-info--claro { color: var(--c-tinta); }
+.contact-info--claro p { line-height: 19px; }
+.contact-info.contact-info--claro .contact-info__mail, .contact-info.contact-info--claro .contact-info__phones { line-height: 19px; }
+.contact-info.contact-info--claro .contact-info__label--16 { line-height: 32px; }
+.contact-info--claro .gap--mail { height: 20.5px; }
+.contact-info--claro a { color: var(--c-tinta); }
+.form--boton-claro .form__submit { background: var(--c-turquesa-medio); color: var(--c-humo); }
+
+/* ==========================================================================
+   PREGUNTAS FRECUENTES (réplica del widget FAQ de Wix)
+   El widget crece al abrir respuestas: va en flujo normal, no en un escenario de alto fijo.
+   ========================================================================== */
+.faq-banner { --banner-h: 367px; --badge-x: 451px; --badge-y: 72px; --title-x: 0px; --title-y: 169px; --banner-op: .61; }
+.faq-banner .page-banner__title { width: 978px; }
+.faq { position: relative; width: var(--wrap); margin: 0 auto 149px; padding: 32px; background: var(--c-humo); }
+.faq__search { position: absolute; left: 668px; top: 32px; width: 280px; height: 41px; border-bottom: 1px solid rgba(51, 58, 59, .6); }
+.faq__search-input { width: 256px; height: 40px; padding: 8px 0; border: 0; background: transparent; font: var(--w-texto-bold) 16px/24px var(--f-texto); color: var(--c-tinta); -webkit-appearance: none; appearance: none; }
+.faq__search-input::placeholder { color: var(--c-tinta); opacity: 1; }
+.faq__search-input:focus { outline: none; }
+.faq__search:focus-within { border-bottom-color: var(--c-turquesa); }
+.faq__search-icon { position: absolute; left: 260px; top: 8px; width: 24px; height: 24px; fill: var(--c-tinta); pointer-events: none; }
+.faq__results { margin: 65px 0 -41px; font-size: 16px; line-height: 24px; color: var(--c-tinta); }
+.faq__tabs { display: flex; margin-top: 65px; }
+.faq__tab { height: 52px; padding: 14px 27.48px 11px; border: 0; border-bottom: 3px solid transparent; background: none; cursor: pointer; font: var(--w-texto) 16px/24px var(--f-texto); color: #191d1d; transition: color .2s ease, border-color .2s ease; }
+.faq__tab[aria-selected="true"] { color: var(--c-turquesa); border-bottom-color: var(--c-turquesa); }
+.faq__tab:hover { color: var(--c-turquesa); }
+.faq__panel { margin-top: 24px; }
+.faq-item { display: flex; margin-top: 24px; }
+.faq-item:first-child { margin-top: 0; }
+.faq-item__num { flex: none; display: flex; align-items: center; justify-content: center; width: 100px; background: var(--c-turquesa-medio); font: 50px/62px var(--f-titulo); color: #191d1d; }
+/* Cerrada: 100px de alto con la pregunta centrada (como Wix); abierta: crece hacia abajo. */
+.faq-item__box { flex: 1; min-height: 100px; padding: 26.5px 24px 17.5px 28px; border: 1px solid var(--c-tinta); }
+.faq-item__box[open] { padding-top: 12px; padding-bottom: 3px; }
+.faq-item__box summary { display: flex; align-items: flex-start; gap: 16px; min-height: 54px; padding: 12px 0; cursor: pointer; list-style: none; }
+.faq-item__box summary::-webkit-details-marker { display: none; }
+.faq-item__box summary::after { content: ""; flex: none; width: 11px; height: 11px; margin: 6px 7px 0 auto; border-right: 1.5px solid var(--c-tinta); border-bottom: 1.5px solid var(--c-tinta); transform: rotate(45deg); transition: transform .2s ease; }
+.faq-item__box[open] summary::after { margin-top: 11px; transform: rotate(-135deg); }
+.faq-item__box summary h2 { font: var(--w-texto) 18px/22px var(--f-texto); color: var(--c-tinta); }
+.faq-item__answer { padding: 12px 0 28px; }
+.faq-item__answer p { font-size: 16px; line-height: 24px; color: var(--c-tinta); }
+.faq.is-searching .faq__tabs { display: none; }
+.faq.is-searching .faq__panel[hidden] { display: block; }
+
+/* ==========================================================================
+   TRABAJA CON NOSOTROS
+   ========================================================================== */
+.trabaja-banner { --banner-h: 367px; --badge-x: 451px; --badge-y: 72px; --title-y: 169px; --banner-op: .78; }
+.trabaja-body { --stage-h: 776px; }
+.trabaja-title { font: 48px/70.5px var(--f-titulo); color: var(--c-tinta); text-align: center; }
+.trabaja-cargo { background: var(--c-turquesa-medio); }
+.trabaja-cargo__text { position: absolute; left: 9px; top: 8px; font: 21px/30.8px var(--f-titulo); }
+.trabaja-cargo__text span { display: block; }
+.trabaja-cargo__text .k { color: var(--c-petroleo); letter-spacing: 1.05px; }
+.trabaja-cargo__text .v { color: var(--c-humo); letter-spacing: 2.1px; }
+.trabaja-cargo__arrows { position: absolute; left: 458px; top: 10px; font: 40px/58.75px var(--f-titulo); color: var(--c-tinta); }
+.trabaja-desc { font-size: 16px; line-height: 19.2px; color: var(--c-tinta); }
+.trabaja-desc .just { text-align: justify; }
+.trabaja-desc strong { font-weight: var(--w-texto-bold); color: var(--c-turquesa); }
+/* En Wix es una línea horizontal rotada -90°: queda vertical en el borde izquierdo de su caja. */
+.trabaja-line { width: 1px; margin: 0; border: 0; background: var(--c-turquesa-medio); }
+.trabaja-req { color: var(--c-tinta); }
+.trabaja-req h3 { font: 21px/30.8px var(--f-titulo); }
+.trabaja-req h3 ~ h3 { margin-top: 8.8px; } /* separadores de 6px de Wix (Anton 6px, line-height normal) */
+.trabaja-req ul { margin: 0 0 0 .5em; padding: 0; font-size: 16px; line-height: 19.2px; list-style: disc; }
+.trabaja-req li { margin-left: 1.3em; }
+.trabaja-btn { height: 40px; }
+
+/* ==========================================================================
+   FORMULARIO DE POSTULACIÓN (réplica del widget 123FormBuilder: tarjeta de 700px)
+   ========================================================================== */
+.postulacion-banner { --banner-op: .73; }
+.postulacion { width: 908px; margin: 62px auto 32px; padding: 10px 0 28px; }
+.app-form { width: 700px; margin: 0 auto; padding: 28px; background: var(--c-blanco); border-radius: 6px; box-shadow: 0 0 24px rgba(0, 0, 0, .06); font: 400 14px/16.8px "Open Sans", Arial, sans-serif; color: #4c4c4c; }
+.app-form__title { font: 400 28px/38px "Open Sans", Arial, sans-serif; color: #4c4c4c; }
+.app-form__sub { margin-top: 13px; font-size: 14px; line-height: 19px; }
+.app-form__hr { margin: 14px 0 29px; border: 0; border-top: 1px solid #808080; }
+.app-form__row { display: flex; align-items: flex-start; min-height: 35px; margin: 0 0 18px; padding: 0; border: 0; }
+.app-form__label { flex: none; width: 297px; padding: 10px 16px 0 0; }
+.app-form__label--short { width: 165px; }
+.app-form fieldset .app-form__label { float: left; }
+.app-form .req { color: #e00; }
+.app-form__control { flex: 1; display: flex; gap: 16px; }
+.app-form__control--half { flex: none; width: 248px; }
+.app-form__control--date { flex: none; width: 280px; }
+.app-form input[type="text"], .app-form input[type="email"], .app-form input[type="url"], .app-form input[type="date"], .app-form select {
+  width: 100%; height: 35px; padding: 8px; border: 1px solid #ccc; border-radius: 3px; background: var(--c-blanco);
+  font: 400 14px/16.8px "Open Sans", Arial, sans-serif; color: #4c4c4c;
+}
+.app-form input::placeholder { color: #a0a0a0; opacity: 1; }
+.app-form select { width: 116px; }
+.app-form__control--pair input:first-child { flex: 0 0 248px; }
+.app-form__radios { display: grid; grid-template-columns: 170px 170px; row-gap: 0; }
+.app-form__radios--1col { grid-template-columns: 170px; }
+.app-form__radios label { display: flex; align-items: center; gap: 10px; padding: 9px 0; cursor: pointer; }
+.app-form__radios input { width: 15px; height: 15px; margin: 0; accent-color: #4c4c4c; }
+.app-form__footer { margin-top: 26px; text-align: center; }
+.app-form__submit { min-width: 122px; height: 46px; padding: 0 40px; border-radius: 3px; background: #4c4c4c; color: var(--c-blanco); font: 400 14px/28px "Open Sans", Arial, sans-serif; }
+.app-form .form__status { margin-top: 10px; color: #4c4c4c; }
+
+/* ==========================================================================
+   BLOG (noticias-contabilidad-chile y post/*)
+   ========================================================================== */
+.blog-banner { --banner-h: 306px; --badge-x: 451px; --badge-y: 72px; --title-y: 169px; --banner-op: .31; }
+.blog-banner .page-banner__img { object-position: top; } /* Wix: alineación "top" */
+.blog { width: 940px; min-height: 2090px; margin: 0 auto; padding-top: 25px; }
+.blog--post { min-height: 0; padding-bottom: 21px; }
+.blog__bar { height: 68px; }
+.blog__all { font: var(--w-texto-bold) 20px/28px var(--f-texto); color: var(--c-negro); text-decoration: none; }
+.blog__all.is-active, .blog__all:hover { color: var(--c-turquesa-medio); }
+/* Tarjeta de la lista. El borde existe en Wix pero es transparente (rgba(150,156,157,0)). */
+.post-card { display: flex; height: 354px; margin-bottom: 32px; border: 1px solid transparent; }
+.post-card__img { flex: 0 0 469px; height: 352px; overflow: hidden; }
+.post-card__img img { width: 100%; height: 100%; object-fit: cover; }
+.post-card__body { padding: 42px 48px 0; }
+/* Autor y fecha. Wix reserva 32px para el avatar (un gravatar en blanco) + 10px de separación. */
+.post-meta { display: flex; flex-wrap: wrap; align-items: center; padding-left: 42px; font: var(--w-texto) 12px/16px var(--f-texto); color: var(--c-tinta); }
+.post-meta__author { flex-basis: 100%; }
+.post-meta__read { display: inline-flex; align-items: center; }
+.post-meta__read::before { content: ""; width: 2px; height: 2px; margin: 0 8px; background: currentColor; }
+.post-card__title { margin-top: 19px; font: 26px/38.2px var(--f-titulo); }
+.post-card__title a { color: var(--c-tinta); text-decoration: none; transition: color .2s ease; }
+.post-card:hover .post-card__title a { color: var(--c-turquesa-medio); }
+.post-card__excerpt { margin-top: 12px; font: var(--w-texto-bold) 15px/22.5px var(--f-texto); color: var(--c-tinta); }
+/* Entrada: columna de 740px; en Wix los párrafos no tienen margen y se separan con una línea vacía (27px). */
+.post { width: 740px; margin: 68px auto 0; }
+.post .post-meta { flex-wrap: nowrap; min-height: 32px; padding-left: 44px; font: var(--w-texto-bold) 14px/21px var(--f-texto); }
+.post .post-meta__author { flex-basis: auto; }
+/* Wix usa un "·" de DIN con margin 0 6px; el "·" (U+00B7) de Barlow cae en la línea base como un
+   punto, así que se dibuja un punto de 2×2 (mismo ancho total: 6.5 + 2 + 6.5 ≈ 6 + glifo + 6). */
+.post .post-meta__date { display: inline-flex; align-items: center; }
+.post .post-meta__date::before, .post .post-meta__read::before { content: ""; width: 2px; height: 2px; margin: 0 6.5px; background: currentColor; }
+.post__title { margin-top: 18px; font: 40px/50px var(--f-titulo); color: var(--c-tinta); }
+.post__body { margin-top: 20px; }
+.post__lead { font: 28px/39.2px var(--f-titulo); color: var(--c-negro); }
+.post__cover { width: 740px; height: auto; }
+.post__body p:not(.post__lead) { margin-bottom: 27px; font: var(--w-texto-bold) 18px/27px var(--f-texto); color: var(--c-tinta); }
+.post__body > p:last-child { margin-bottom: 0; }
+.post__body a { color: var(--c-turquesa-medio); }
+.post__footer { margin-top: 74px; padding: 23px 0; border-top: 1px solid rgba(51, 58, 59, .2); border-bottom: 1px solid rgba(51, 58, 59, .2); }
+.post-share { display: flex; align-items: center; gap: 30px; }
+.post-share__btn { display: block; width: 19px; height: 19px; padding: 0; border: 0; background: none; color: var(--c-tinta); cursor: pointer; transition: color .2s ease; }
+.post-share__btn svg { display: block; fill: currentColor; }
+.post-share__btn:hover, .post-share__btn:focus-visible { color: var(--c-turquesa-medio); }
+.post-share__status { font: var(--w-texto) 14px/19px var(--f-texto); color: var(--c-tinta); }
+.recent-posts { width: 940px; margin: 130px auto 0; }
+.recent-posts__head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.recent-posts__head h2 { font: var(--w-texto-bold) 18px/27px var(--f-texto); color: var(--c-tinta); }
+.recent-posts__head a { font: var(--w-texto-bold) 14px/21px var(--f-texto); color: var(--c-tinta); text-decoration: none; }
+.recent-posts__head a:hover { color: var(--c-turquesa-medio); }
+.recent-post { display: block; width: 291px; min-height: 313px; text-decoration: none; color: var(--c-tinta); border: 1px solid transparent; }
+.recent-post img { width: 289px; height: 162px; object-fit: cover; }
+.recent-post__title { display: block; padding: 25px 24px 24px; font: 18px/26.4px var(--f-titulo); transition: color .2s ease; }
+.recent-post:hover .recent-post__title { color: var(--c-turquesa-medio); }
+
+/* ==========================================================================
+   GRACIAS (landing page de Wix: sin header ni footer)
+   ========================================================================== */
+.page-gracias .site-header, .page-gracias .site-footer, .page-gracias .quick-actions, .page-gracias .back-to-top { display: none; }
+.gracias { position: relative; width: var(--wrap); min-height: 100vh; margin: 0 auto; }
+.gracias__box { position: absolute; left: 206px; top: 51px; width: 568px; height: 291px; background: rgba(98, 187, 195, .11); }
+.gracias__text { position: absolute; left: 258px; top: 85px; width: 464px; text-align: center; font: 41px/60.2px var(--f-titulo); color: var(--c-turquesa); }
+.gracias__firma { position: absolute; left: 432px; top: 293px; width: 115px; text-align: center; font: 400 15px/18px var(--f-barlow); color: #000; }
+.gracias__btn { position: absolute; left: 419px; top: 384px; width: 142px; height: 40px; }
+
+/* ==========================================================================
    MÓVIL (< 980px) — replica la versión móvil de Wix (layout de 320px escalado)
    ========================================================================== */
 @media (max-width: 979px) {
@@ -734,6 +913,89 @@ textarea.form__field { height: 130px; margin-bottom: 8px; padding: 10.5px 10px 3
   .contact-dialog textarea.form__field { height: calc(100 * var(--m)); margin-bottom: calc(8 * var(--m)); }
   .contact-dialog__social { justify-content: center; margin-top: calc(16 * var(--m)); }
   .contact-dialog__foot { margin-top: calc(12 * var(--m)); font-size: calc(13 * var(--m)); line-height: 1.4; }
+
+  /* --- Contacto (móvil). Wix oculta el formulario en móvil; aquí se mantiene (ver README). --- */
+  .contacto-banner { --banner-mh: 92; --title-my: 20; }
+  .contacto-body { padding-top: calc(20 * var(--m)); padding-bottom: calc(30 * var(--m)); }
+  .contacto-lead { font-size: calc(22 * var(--m)); line-height: calc(28.6 * var(--m)); letter-spacing: calc(.44 * var(--m)); }
+  .contacto-lead .sep { height: calc(9 * var(--m)); }
+  .contacto-mapa { width: 100%; height: calc(240 * var(--m)); margin-top: calc(26 * var(--m)); }
+  .contact-info--claro { margin-top: calc(22 * var(--m)); font-size: calc(16 * var(--m)); }
+  .contacto-form { margin-top: calc(24 * var(--m)); }
+
+  /* --- Preguntas frecuentes (móvil) --- */
+  .faq-banner { --banner-mh: 92; --title-my: 20; }
+  .faq-banner .page-banner__title { width: auto; }
+  .faq { width: auto; margin: 0 0 calc(30 * var(--m)); padding: calc(16 * var(--m)); }
+  .faq__search { position: relative; left: auto; top: auto; width: 100%; height: auto; }
+  .faq__search-input { width: calc(100% - 30px); font-size: calc(16 * var(--m)); }
+  .faq__search-icon { left: auto; right: 0; }
+  .faq__results { margin: calc(16 * var(--m)) 0 0; }
+  .faq__tabs { margin-top: calc(16 * var(--m)); overflow-x: auto; }
+  .faq__tab { flex: none; height: auto; padding: calc(10 * var(--m)) calc(16 * var(--m)); font-size: calc(16 * var(--m)); }
+  .faq__panel { margin-top: calc(16 * var(--m)); }
+  .faq-item { margin-top: calc(14 * var(--m)); }
+  .faq-item__num { width: calc(56 * var(--m)); font-size: calc(32 * var(--m)); line-height: 1.2; }
+  .faq-item__box { min-height: calc(80 * var(--m)); padding: calc(14 * var(--m)) calc(12 * var(--m)) calc(10 * var(--m)) calc(14 * var(--m)); }
+  .faq-item__box[open] { padding-top: calc(8 * var(--m)); padding-bottom: calc(4 * var(--m)); }
+  .faq-item__box summary { min-height: 0; padding: calc(8 * var(--m)) 0; }
+  .faq-item__box summary h2 { font-size: calc(16 * var(--m)); line-height: calc(20 * var(--m)); }
+  .faq-item__answer { padding: calc(6 * var(--m)) 0 calc(14 * var(--m)); }
+  .faq-item__answer p { font-size: calc(15 * var(--m)); line-height: calc(21 * var(--m)); }
+
+  /* --- Trabaja con nosotros (móvil) --- */
+  .trabaja-banner { --banner-mh: 92; --title-my: 20; }
+  .trabaja-body { padding-top: calc(20 * var(--m)); padding-bottom: calc(30 * var(--m)); }
+  .trabaja-title { font-size: calc(30 * var(--m)); line-height: calc(44 * var(--m)); }
+  .trabaja-cargo { position: relative; height: calc(79 * var(--m)); margin-top: calc(12 * var(--m)); }
+  .trabaja-cargo__text { left: calc(9 * var(--m)); top: calc(8 * var(--m)); font-size: calc(21 * var(--m)); line-height: calc(30.8 * var(--m)); }
+  .trabaja-cargo__arrows { left: auto; right: calc(10 * var(--m)); top: calc(10 * var(--m)); font-size: calc(40 * var(--m)); line-height: calc(58.75 * var(--m)); }
+  .trabaja-desc { margin-top: calc(20 * var(--m)); font-size: calc(16 * var(--m)); line-height: calc(19.2 * var(--m)); }
+  .trabaja-line { width: auto; height: 1px; margin: calc(20 * var(--m)) 0; }
+  .trabaja-req h3 { font-size: calc(21 * var(--m)); line-height: calc(30.8 * var(--m)); }
+  .trabaja-req ul { font-size: calc(16 * var(--m)); line-height: calc(19.2 * var(--m)); }
+  .trabaja-btn { height: calc(40 * var(--m)); width: calc(142 * var(--m)); margin: calc(24 * var(--m)) auto 0; }
+
+  /* --- Formulario de postulación (móvil): rótulos arriba de cada campo --- */
+  .postulacion { width: auto; margin: calc(16 * var(--m)) calc(10 * var(--m)) calc(30 * var(--m)); padding: 0; }
+  .app-form { width: auto; padding: calc(18 * var(--m)); }
+  .app-form__title { font-size: calc(22 * var(--m)); line-height: 1.3; }
+  .app-form__row { display: block; margin-bottom: calc(14 * var(--m)); }
+  .app-form__label, .app-form__label--short { display: block; width: auto; padding: 0 0 calc(6 * var(--m)); }
+  .app-form fieldset .app-form__label { float: none; }
+  .app-form__control--half, .app-form__control--date { width: auto; }
+  .app-form__control--pair input:first-child { flex: 1 1 0; }
+  .app-form__control--pair input { min-width: 0; }
+  .app-form__radios { grid-template-columns: 1fr 1fr; }
+
+  /* --- Blog (móvil) --- */
+  .blog-banner { --banner-mh: 92; --title-my: 20; }
+  .blog { width: auto; min-height: 0; padding: calc(16 * var(--m)) calc(16 * var(--m)) calc(30 * var(--m)); }
+  .blog__bar { height: auto; margin-bottom: calc(14 * var(--m)); }
+  .post-card { display: block; height: auto; margin-bottom: calc(20 * var(--m)); }
+  .post-card__img { display: block; height: calc(190 * var(--m)); }
+  .post-card__body { padding: calc(16 * var(--m)) calc(16 * var(--m)) calc(20 * var(--m)); }
+  .post-card__title { margin-top: calc(10 * var(--m)); font-size: calc(22 * var(--m)); line-height: 1.35; }
+  .post { width: auto; margin-top: calc(10 * var(--m)); }
+  .post .post-meta { flex-wrap: wrap; font-size: calc(13 * var(--m)); }
+  .post__title { margin-top: calc(12 * var(--m)); font-size: calc(28 * var(--m)); line-height: 1.25; }
+  .post__body { margin-top: calc(16 * var(--m)); }
+  .post__lead { font-size: calc(21 * var(--m)); line-height: 1.4; }
+  .post__cover { width: 100%; margin-top: calc(12 * var(--m)); }
+  .post__body p:not(.post__lead) { margin-bottom: calc(18 * var(--m)); font-size: calc(16 * var(--m)); line-height: 1.6; }
+  .post__body > p:last-child { margin-bottom: 0; }
+  .post__footer { margin-top: calc(30 * var(--m)); padding: calc(16 * var(--m)) 0; }
+  .recent-posts { width: auto; margin-top: calc(40 * var(--m)); }
+  .recent-post { width: auto; min-height: 0; }
+  .recent-post img { width: 100%; height: calc(170 * var(--m)); }
+  .recent-post__title { padding: calc(16 * var(--m)); }
+  /* --- Gracias (móvil) --- */
+  .gracias { width: auto; padding: calc(40 * var(--m)) calc(20 * var(--m)); text-align: center; }
+  .gracias__box { left: calc(10 * var(--m)); right: calc(10 * var(--m)); top: calc(20 * var(--m)); width: auto; height: calc(260 * var(--m)); }
+  .gracias__text, .gracias__firma, .gracias__btn { position: relative; left: auto; top: auto; width: auto; }
+  .gracias__text { font-size: calc(30 * var(--m)); line-height: 1.45; }
+  .gracias__firma { margin-top: calc(20 * var(--m)); }
+  .gracias__btn { width: calc(142 * var(--m)); height: calc(40 * var(--m)); margin: calc(60 * var(--m)) auto 0; }
 }
 
 /* Teléfonos medianos/tablets: el escalado se topa en 1.6px y centramos columnas. */

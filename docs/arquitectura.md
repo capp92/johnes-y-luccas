@@ -42,7 +42,9 @@ build.py                        ← generador (solo librería estándar de Pytho
   `nav` (`inicio|nosotros|testimonios|servicios|contacto`, marca el ítem activo del menú).
   Opcionales: `body_class`, `search_title`, `keywords`, `search: no` (excluir del buscador).
 - Variables disponibles: todo el front matter + `root` (ruta relativa a la raíz: `./`, `../`, …),
-  `canonical`, `site-url`, `nav-*` / `cur-*` (clase y `aria-current` del menú).
+  `canonical`, `canonical-enc` (la misma URL codificada para `?url=`, la usan los botones de compartir
+  del blog), `site-url`, `nav-*` / `cur-*` (clase y `aria-current` del menú). Los partials heredan las
+  variables de la página que los incluye.
 - Los links internos son **relativos** (`{{root}}equipo-trabajo/`): el sitio funciona en la raíz de un
   dominio, en una subcarpeta (GitHub Pages de proyecto) y abriendo los archivos con `file://`
   (`site.js` agrega `index.html` a los links cuando no hay servidor).
@@ -68,9 +70,10 @@ build.py                        ← generador (solo librería estándar de Pytho
 | En el original (Wix) | En la copia | Por qué |
 |---|---|---|
 | DIN Next W01 Light (texto general) | **Barlow 300** como familia `"Barlow DIN"` | DIN Next es de Monotype, licenciada por Wix solo para sitios en Wix: no se puede copiar. Barlow (OFL) es de estilo DIN y mide lo mismo (608 px vs 606 px en una línea de prueba). |
-| negrita de DIN Next Light (sintética) | Barlow 500 | La "negrita" de Wix es sintética sobre la Light; visualmente ≈ 500. |
+| negrita de DIN Next Light (sintética) | Barlow 400 (`--w-texto-bold`) | La "negrita" de Wix es sintética sobre la Light; en ancho y grosor ≈ Barlow 400. |
 | Helvetica W01 Roman (solo mensaje del formulario) | Helvetica/Arial del sistema | Misma razón de licencia. |
 | Anton, Cormorant Garamond Light, Roboto Bold, Barlow | **los mismos archivos que sirve Wix** | Son OFL/Apache. Se usan las versiones exactas de Wix (Anton v11, etc.): con la versión actual de Google Fonts, Anton quedaba 3,5 px más abajo. |
+| Open Sans (cita en cursiva de las páginas de servicio; formulario de 123FormBuilder) | las copias que sirve Wix (itálica y regular) | Apache 2.0. La regular solo la usa la réplica del formulario de postulación. |
 | Optimus Princeps (logo) | el mismo archivo | Fuente subida por el dueño del sitio a Wix. |
 
 **Métricas de "Barlow DIN".** DIN Next Light tiene ascent 85 % / descent 35 %; Barlow 100 % / 20 %
@@ -95,9 +98,10 @@ conserva los 776 px (`--parallax-media-h`).
 
 ### Animación de entrada
 
-Los números 01/02/03 tienen el "floatIn" de Wix: 1200 ms, sube 60 px y aparece, curva
-`cubic-bezier(0.445, 0.05, 0.55, 0.95)`. Se dispara con `IntersectionObserver` (clase `.is-in`).
-La clase `js` se agrega en el `<head>` para que no parpadeen antes de animarse.
+Los números 01/02/03 de la home tienen el "floatIn" de Wix (`.float-in`: 1200 ms, sube 60 px y aparece) y
+los títulos de los banners de servicio y de Preguntas frecuentes el "fadeIn" (`.fade-in`: 1200 ms, solo
+opacidad). Curva `cubic-bezier(0.445, 0.05, 0.55, 0.95)`. Se disparan con `IntersectionObserver` (clase
+`.is-in`). La clase `js` se agrega en el `<head>` para que no parpadeen antes de animarse.
 
 ### Móvil (< 980 px)
 
@@ -116,6 +120,11 @@ con N = píxeles del layout de Wix. Así el resultado es proporcional al origina
 | Plantilla de servicio | clases `.svc-*` | Las 3 páginas de servicio comparten estructura; columnas y alturas van inline (`--cols`, `--h`, `--mt`, `--mb`). |
 | Popup "CONTÁCTANOS" | `_src/partials/dialogo-contacto.html` | `<dialog>` nativo; lo abren los botones con `data-open-dialog="contacto-dialog"`. Sin JS el botón lleva a `/contacto/`. |
 | Comillas de testimonio | `_src/partials/comillas.html` | El vector original está rotado 180° (comillas de cierre). |
+| Preguntas frecuentes | `[data-faq]` en `faq-contabilidad.html` | Pestañas `role="tab"` (flechas ←/→), acordeón con `<details>` (sin JS) y buscador que filtra `.faq-item` sin distinguir tildes. |
+| Formulario de postulación | `.app-form` | Réplica del widget de 123FormBuilder (Open Sans, grises `#4c4c4c`). **Solo visual**: sin `data-contact-form` y con el botón `type="button"`; ver README, "Formularios". |
+| Blog: lista y entrada | `.blog`, `.post-card`, `.post`, `.recent-posts` | Medidas del original. En la entrada, los párrafos van sin margen y se separan con una línea vacía de 27 px, como en Wix. Autor/fecha (`.post-meta`) dejan 32 px para el avatar (en Wix es un gravatar en blanco). |
+| Compartir entrada | `_src/partials/post-share.html` | Facebook, X y LinkedIn por URL (`canonical-enc`) + botón "copiar enlace" (`data-copy-link` en `site.js`). Solo comparten bien con el sitio publicado en su dominio. |
+| Página sin header ni footer | `body_class: page-gracias` | Las "landing pages" de Wix ocultan el header y el footer; el CSS hace lo mismo con esa clase. |
 
 `build.py` admite valores por defecto: `{{variable|valor}}`.
 
@@ -127,7 +136,13 @@ con N = píxeles del layout de Wix. Así el resultado es proporcional al origina
 | Imágenes de las tarjetas 02 y 03 (home) | enlazan a *Contabilidad Financiera* | toda la tarjeta enlaza a su servicio | error del original |
 | Buscador | widget de terceros (InstantSearch+) en iframe | buscador propio sobre las páginas del sitio | el widget depende de Wix |
 | Formularios | los envía Wix | `mailto:` o un endpoint configurable | no hay backend (ver README) |
-| Formulario de la home en móvil | oculto | visible | es el principal punto de contacto |
+| Formularios de la home y de Contacto en móvil | ocultos | visibles | son el principal punto de contacto |
+| Mapa de Contacto | widget de mapa de Wix | `<iframe>` de Google Maps con las mismas coordenadas | el widget depende de Wix |
+| Formulario de postulación | widget de 123FormBuilder (iframe ligado a la cuenta de Wix, con banner publicitario de 123FormBuilder) | réplica visual con los mismos campos, **sin envío** | decisión de Cristóbal (2026-10-17); para activarlo, ver README |
+| Entradas del blog | republicaban textualmente comunicados del SII | resumen propio (bajada, imagen, párrafos) con enlace a la fuente | no copiar textos completos de terceros |
+| URLs de las entradas | con tildes (`/post/se-informa-la-circulación-…`) | sin tildes y con `/` final | URLs ASCII más robustas; al publicar, redirigir las antiguas (README, "Publicar") |
+| Blog: contadores de visitas y comentarios, "me gusta", comentarios, menú ⋮ y lupa de búsqueda | widgets de Wix | omitidos | dependen del backend de Wix; el buscador del header cubre el sitio |
+| Botones de compartir de la entrada | botones de Wix | enlaces directos a Facebook/X/LinkedIn + copiar enlace | mismo comportamiento sin Wix |
 | Acción "LinkedIn" (barra móvil) | sin URL configurada | igual, deshabilitada | falta la URL real |
 | Encabezados | el logo es `<h1>` en todas las páginas | el logo es un link; cada página tiene su propio `<h1>` | SEO / accesibilidad |
 | LinkedIn de los socios (Equipo, móvil) | los íconos están intercambiados entre Cristián y Gonzalo | cada uno con su persona | error del original |
@@ -144,6 +159,14 @@ con N = píxeles del layout de Wix. Así el resultado es proporcional al origina
 3. Estilos propios de la página: bloque nuevo en `assets/css/site.css` (escritorio y móvil).
 4. `python3 build.py` y revisar con `python3 -m http.server`.
 5. Si la página debe aparecer en el menú o el footer: editar `_src/layout.html`.
+
+**Agregar una entrada al blog**
+1. Crear `_src/pages/post-<nombre>.html` copiando una entrada existente: `path: post/<slug-sin-tildes>/`,
+   `nav: ninguno`, `body_class: page-post`, `search_title` y `keywords` para el buscador.
+2. Imagen: agregarla a `tools/assets.json` (carpeta `assets/img/blog/`) y correr `python3 tools/descargar_assets.py`.
+3. Agregar su `.post-card` al principio de `_src/pages/noticias-contabilidad-chile.html` (Wix ordena de la más nueva a la más antigua).
+4. Actualizar el bloque "Entradas recientes" de las otras entradas (cada una muestra las demás).
+5. `python3 build.py` y revisar en `http://localhost:8000/noticias-contabilidad-chile/`.
 
 **Cambiar un dato de contacto (teléfono, mail, dirección)**
 Aparece en: `_src/layout.html` (header, footer, barra móvil, JSON-LD), `_src/pages/index.html`
@@ -165,3 +188,14 @@ Buscar con `grep -rn "3220 5850" _src assets/js` y luego `python3 build.py`.
   en móvil `body { overflow-wrap: break-word }`.
 - En un `<dialog>` el orden de tabulación es el del DOM: los campos del popup van Nombre, E-mail, Mensaje y la grilla CSS
   los acomoda.
+- Al cruzar el breakpoint de 980 px (achicar la ventana, girar una tablet), los fundidos del menú dejaban ver un instante el
+  menú móvil a pantalla completa o los submenús de escritorio. `site.js` agrega `.no-anim` a `<html>` mientras dura el
+  `resize` y el CSS anula esas transiciones. Lo destapó la captura de página completa de DevTools (ver la siguiente).
+- Las capturas de página completa de DevTools/Puppeteer (`fullPage`) redimensionan la página a 1×1 y de vuelta: disparan
+  `resize`, cruzan el breakpoint y cambian `100vh` (el parallax sale distinto). Para comparar con el original, usar capturas
+  del viewport en la misma posición de scroll.
+- El "·" (U+00B7) de Barlow se dibuja en la línea base, igual que un punto. Los separadores de autor/fecha del blog son
+  puntos de 2×2 px hechos con CSS.
+- Wix carga widgets al hacer scroll (p. ej. los comentarios del blog): la altura de la página original cambia después
+  de bajar (2695 → 2990 px en una entrada). Medir alturas recién cargada la página o después de recorrerla, pero no mezclar
+  las dos cosas.

@@ -1,0 +1,35 @@
+---
+title: Contacto | Asesoría Tributaria | Johnes & Luccas | Chile
+description: ¿Necesita ordenar y controlar la contabilidad de su empresa o asesoría empresarial? Escríbanos para agendar una reunión y empezar a solucionar sus problemas.
+path: contacto/
+nav: contacto
+body_class: page-contacto
+search_title: Contacto
+keywords: contacto dirección estoril 200 las condes teléfono email reunión mapa
+---
+<section class="page-banner contacto-banner">
+  <img class="page-banner__img" src="{{root}}assets/img/contacto/banner-contacto.jpg" alt="" width="1254" height="513" fetchpriority="high">
+  <div class="page-banner__inner">
+    {{> jl-badge}}
+    <h1 class="page-banner__title">CONTACTO</h1>
+  </div>
+</section>
+
+<div class="stage contacto-body">
+  <h2 class="contacto-lead at" style="--x:20px;--y:69px;--w:354px"><span>CONFÍE&nbsp;SU EMPRESA&nbsp;A NUESTRO EQUIPO DE PROFESIONALES.</span><span class="sep" aria-hidden="true"></span><span>CONTÁCTENOS PARA AGENDAR UNA REUNIÓN.</span></h2>
+  <iframe class="contacto-mapa at" style="--x:499px;--y:68px;--w:460px;--h:209px" title="Mapa: Estoril 200, Oficina 526, Edificio Cien, Las Condes" src="https://maps.google.com/maps?q=-33.3845716,-70.5328756&amp;z=16&amp;hl=es&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  <div class="contact-info contact-info--claro at" style="--x:20px;--y:326px;--w:380px">
+    <p class="contact-info__label">Dirección</p>
+    <p>Estoril 200, Of.&nbsp;526, Las Condes</p>
+    <p>Santiago -&nbsp;Chile</p>
+    <div class="gap"></div>
+    <p class="contact-info__label contact-info__label--16">E-mail</p>
+    <p class="contact-info__mail"><a href="mailto:contacto@johnesyluccas.cl">contacto@johnesyluccas.cl</a></p>
+    <div class="gap gap--mail"></div>
+    <p class="contact-info__label contact-info__label--16">Teléfono</p>
+    <p class="contact-info__phones"><a href="tel:+56232205850">+(56) 2 3220 5850</a><br><a href="tel:+56232205857">+(56) 2 3220 5857</a></p>
+  </div>
+  <div class="contacto-form at" style="--x:499px;--y:308px;--w:460px">
+    {{> form-contacto form-class="form--oscuro form--boton-claro" origen="Contacto" exito="Success! Message received." redirect="" mensaje="Mensaje *" mensaje-required=" required"}}
+  </div>
+</div>

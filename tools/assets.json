@@ -218,6 +218,37 @@
       "src": "https://static.wixstatic.com/media/6ea5b4a88f0b4f91945b40499aa0af00.png/v1/fill/w_60,h_60,al_c/icon.png",
       "original": "https://static.wixstatic.com/media/6ea5b4a88f0b4f91945b40499aa0af00.png",
       "note": "Ícono del popup Contáctanos"
+    },
+    {
+      "dest": "assets/img/contacto/banner-contacto.jpg",
+      "src": "https://static.wixstatic.com/media/d59c19_2ba83af1eb724285a6b696dd1aec63c0~mv2.png",
+      "original": "https://static.wixstatic.com/media/d59c19_2ba83af1eb724285a6b696dd1aec63c0~mv2.png",
+      "convert": "jpg",
+      "note": "Banner de Contacto (PNG 1254x513 convertido a JPEG)"
+    },
+    {
+      "dest": "assets/img/trabaja/banner-trabaja.jpg",
+      "src": "https://static.wixstatic.com/media/4fa872fd75d046b8a227a5202176ab14.jpg/v1/fit/w_2560,h_2560,q_85/img.jpg",
+      "original": "https://static.wixstatic.com/media/4fa872fd75d046b8a227a5202176ab14.jpg",
+      "note": "Banner de Trabaja con nosotros (5242x3932)"
+    },
+    {
+      "dest": "assets/img/blog/banner-noticias.jpg",
+      "src": "https://static.wixstatic.com/media/d59c19_c6612d0efa7644ca94544eb5c8fe9eca~mv2.jpg",
+      "original": "https://static.wixstatic.com/media/d59c19_c6612d0efa7644ca94544eb5c8fe9eca~mv2.jpg",
+      "note": "Banner del blog (diario-o-periodico.jpg, 1920x1080; en Wix alineado arriba)"
+    },
+    {
+      "dest": "assets/img/blog/correos-falsos.jpg",
+      "src": "https://static.wixstatic.com/media/e057c278e95e89ba03a70f135823b0ee.JPG/v1/fit/w_1480,h_1480,q_85/img.jpg",
+      "original": "https://static.wixstatic.com/media/e057c278e95e89ba03a70f135823b0ee.JPG",
+      "note": "Portada de la entrada 'Se informa la circulación de correos electrónicos falsos'"
+    },
+    {
+      "dest": "assets/img/blog/sii-app.jpg",
+      "src": "https://static.wixstatic.com/media/6ae24f2024854f5aa0ad506ea3c7a2f5.jpg/v1/fit/w_1480,h_1480,q_85/img.jpg",
+      "original": "https://static.wixstatic.com/media/6ae24f2024854f5aa0ad506ea3c7a2f5.jpg",
+      "note": "Portada de la entrada 'SII lanza nueva aplicación móvil...'"
     }
   ],
   "fonts": [
@@ -254,6 +285,11 @@
       "dest": "assets/fonts/open-sans-italic-400.woff2",
       "src": "https://static.parastorage.com/fonts/v2/e3af1b1e-e84c-47bd-96ed-ea490697a5d3/v1/open%20sans.woff2",
       "note": "Open Sans Italic (Apache 2.0), copia que sirve Wix (frases en cursiva de las páginas de servicio)"
+    },
+    {
+      "dest": "assets/fonts/open-sans-400.woff2",
+      "src": "https://static.parastorage.com/fonts/v2/e59e6f5c-7ac5-47cf-8fe5-22ee5f11aa42/v1/open%20sans.woff2",
+      "note": "Open Sans Regular (Apache 2.0), copia de Wix: formulario de postulación (réplica del widget 123FormBuilder)"
     }
   ],
   "google_fonts": [
