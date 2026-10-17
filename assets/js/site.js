@@ -57,8 +57,8 @@
     updateParallax();
   }
 
-  /* 2. Animación de entrada -------------------------------------------------- */
-  var floaters = document.querySelectorAll('.float-in');
+  /* 2. Animaciones de entrada ("floatIn" y "fadeIn" de Wix) ------------------- */
+  var floaters = document.querySelectorAll('.float-in, .fade-in');
   if (floaters.length) {
     if (reduceMotion || !('IntersectionObserver' in window)) {
       Array.prototype.forEach.call(floaters, function (el) { el.classList.add('is-in'); });
@@ -110,6 +110,19 @@
       setMenu(false);
       document.querySelectorAll('.has-submenu.is-open').forEach(function (li) { li.classList.remove('is-open'); });
     }
+  });
+
+  /* Popup "CONTÁCTANOS" de las páginas de servicio (<dialog> nativo) ----------- */
+  document.querySelectorAll('[data-open-dialog]').forEach(function (btn) {
+    var dlg = document.getElementById(btn.getAttribute('data-open-dialog'));
+    if (!dlg || typeof dlg.showModal !== 'function') return;
+    btn.addEventListener('click', function (e) { e.preventDefault(); dlg.showModal(); });
+  });
+  document.querySelectorAll('dialog').forEach(function (dlg) {
+    dlg.addEventListener('click', function (e) {
+      // Clic en el fondo (fuera del contenido) o en el botón cerrar
+      if (e.target === dlg || e.target.closest('[data-close-dialog]')) dlg.close();
+    });
   });
 
   /* 4. Volver arriba (móvil) -------------------------------------------------- */

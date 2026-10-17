@@ -11,6 +11,7 @@ Cómo funciona (detalle en docs/arquitectura.md):
   - _src/pages/*.html    una página por archivo, con front matter entre líneas '---'.
   - {{variable}} se reemplaza por el valor del front matter, de los argumentos del
     partial o de las variables que calcula este script (root, canonical, nav-*, ...).
+    {{variable|valor}} usa "valor" si la variable no está definida.
 
 Los .html generados se commitean (la raíz del repo es el sitio publicable), pero
 NO se editan a mano: cada uno lleva un comentario que apunta a su fuente.
@@ -33,7 +34,7 @@ REQUIRED_META = ["title", "description", "path", "nav"]
 
 PARTIAL_RE = re.compile(r"\{\{>\s*([\w-]+)((?:\s+[\w-]+=\"[^\"]*\")*)\s*\}\}")
 ARG_RE = re.compile(r"([\w-]+)=\"([^\"]*)\"")
-VAR_RE = re.compile(r"\{\{\s*([\w-]+)\s*\}\}")
+VAR_RE = re.compile(r"\{\{\s*([\w-]+)(?:\|([^}]*))?\s*\}\}")
 
 
 def parse_page(path: Path) -> tuple[dict[str, str], str]:
@@ -68,10 +69,12 @@ def render(template: str, ctx: dict[str, str], source: str, depth: int = 0) -> s
     out = PARTIAL_RE.sub(include, template)
 
     def var(m: re.Match) -> str:
-        key = m.group(1)
-        if key not in ctx:
-            raise SystemExit(f"{source}: variable sin definir {{{{{key}}}}}")
-        return ctx[key]
+        key, default = m.group(1), m.group(2)
+        if key in ctx:
+            return ctx[key]
+        if default is not None:
+            return default
+        raise SystemExit(f"{source}: variable sin definir {{{{{key}}}}}")
 
     return VAR_RE.sub(var, out)
 

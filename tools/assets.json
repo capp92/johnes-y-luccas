@@ -56,6 +56,168 @@
       "original": "https://static.wixstatic.com/media/5cf87af427f54044b775e09a8dc5e4c9.png",
       "convert": "jpg",
       "note": "Textura de la tarjeta 02 (PNG original de 8 MB)"
+    },
+    {
+      "dest": "assets/img/equipo/banner-apreton-manos.jpg",
+      "src": "https://static.wixstatic.com/media/4cb2411121d14cab94fb4cfb11f4f056.jpg/v1/fit/w_1733,h_1733,q_85/img.jpg",
+      "original": "https://static.wixstatic.com/media/4cb2411121d14cab94fb4cfb11f4f056.jpg",
+      "note": "Banner de Equipo de trabajo (Dos hombres agitando las manos, 1733x1733)"
+    },
+    {
+      "dest": "assets/img/icono-linkedin.png",
+      "src": "https://static.wixstatic.com/media/d59c19_24a555f8e41340519ee57ce1babee5fa~mv2.png/v1/fill/w_120,h_120,al_c/linkedin.png",
+      "original": "https://static.wixstatic.com/media/d59c19_24a555f8e41340519ee57ce1babee5fa~mv2.png",
+      "note": "Ícono LinkedIn de las fichas de socios"
+    },
+    {
+      "dest": "assets/img/equipo/cristian-prieto.jpg",
+      "src": "https://static.wixstatic.com/media/a787a1_876307399abf42c5bbcfe5e9b097cdb5~mv2.jpg/v1/fit/w_1000,h_1400,q_85/img.jpg",
+      "original": "https://static.wixstatic.com/media/a787a1_876307399abf42c5bbcfe5e9b097cdb5~mv2.jpg",
+      "note": "Foto Cristián Prieto C. (sin recorte; se encuadra con object-fit)"
+    },
+    {
+      "dest": "assets/img/equipo/gonzalo-prieto.jpg",
+      "src": "https://static.wixstatic.com/media/a787a1_c74122592da94470975996d7f285d299~mv2_d_2111_3038_s_2.jpg/v1/crop/x_0,y_294,w_2111,h_2451/fill/w_920,h_1068,al_c,q_85/img.jpg",
+      "original": "https://static.wixstatic.com/media/a787a1_c74122592da94470975996d7f285d299~mv2_d_2111_3038_s_2.jpg",
+      "note": "Foto Gonzalo Prieto C. (recorte del original)"
+    },
+    {
+      "dest": "assets/img/equipo/nancy.jpg",
+      "src": "https://static.wixstatic.com/media/a787a1_cf0c6967ca184aff90a49ac8fafc5163~mv2_d_2416_3640_s_4_2.jpg/v1/crop/x_0,y_312,w_2416,h_2400/fill/w_604,h_600,al_c,q_85/img.jpg",
+      "original": "https://static.wixstatic.com/media/a787a1_cf0c6967ca184aff90a49ac8fafc5163~mv2_d_2416_3640_s_4_2.jpg",
+      "note": "Foto Nancy (recorte del original)"
+    },
+    {
+      "dest": "assets/img/equipo/glenda.jpg",
+      "src": "https://static.wixstatic.com/media/a787a1_dbe62384788c43b6b84bf3a80e7f5322~mv2.jpg/v1/crop/x_0,y_25,w_754,h_752/fill/w_604,h_600,al_c,q_85/img.jpg",
+      "original": "https://static.wixstatic.com/media/a787a1_dbe62384788c43b6b84bf3a80e7f5322~mv2.jpg",
+      "note": "Foto Glenda (recorte del original)"
+    },
+    {
+      "dest": "assets/img/equipo/alejandra.jpg",
+      "src": "https://static.wixstatic.com/media/a787a1_97a1d96546694f2c9720910bd1a65430~mv2.jpg/v1/crop/x_0,y_167,w_882,h_880/fill/w_604,h_600,al_c,q_85/img.jpg",
+      "original": "https://static.wixstatic.com/media/a787a1_97a1d96546694f2c9720910bd1a65430~mv2.jpg",
+      "note": "Foto Alejandra (recorte del original)"
+    },
+    {
+      "dest": "assets/img/equipo/silvia.jpg",
+      "src": "https://static.wixstatic.com/media/a787a1_3718e1d99078497abdbe06de3524b360~mv2_d_2450_3276_s_4_2.jpg/v1/crop/x_0,y_503,w_2450,h_2433/fill/w_604,h_600,al_c,q_85/img.jpg",
+      "original": "https://static.wixstatic.com/media/a787a1_3718e1d99078497abdbe06de3524b360~mv2_d_2450_3276_s_4_2.jpg",
+      "note": "Foto Silvia (recorte del original)"
+    },
+    {
+      "dest": "assets/img/equipo/ricardo.jpg",
+      "src": "https://static.wixstatic.com/media/a787a1_70924e2dfc4a4e3aa8fab45181ce7e4c~mv2_d_2105_3106_s_2.jpg/v1/crop/x_0,y_528,w_2105,h_2105/fill/w_606,h_606,al_c,q_85/img.jpg",
+      "original": "https://static.wixstatic.com/media/a787a1_70924e2dfc4a4e3aa8fab45181ce7e4c~mv2_d_2105_3106_s_2.jpg",
+      "note": "Foto Ricardo (recorte del original)"
+    },
+    {
+      "dest": "assets/img/equipo/gabriela.jpg",
+      "src": "https://static.wixstatic.com/media/a787a1_3430f10940854443b66b3e4e144ec224~mv2.jpg/v1/crop/x_0,y_237,w_874,h_874/fill/w_604,h_604,al_c,q_85/img.jpg",
+      "original": "https://static.wixstatic.com/media/a787a1_3430f10940854443b66b3e4e144ec224~mv2.jpg",
+      "note": "Foto Gabriela (recorte del original)"
+    },
+    {
+      "dest": "assets/img/porque/banner-graficos.jpg",
+      "src": "https://static.wixstatic.com/media/ef9ce3e48be340a4b91f0c3e1644aa5b.jpg/v1/fit/w_1920,h_1920,q_85/img.jpg",
+      "original": "https://static.wixstatic.com/media/ef9ce3e48be340a4b91f0c3e1644aa5b.jpg",
+      "note": "Banner de Por qué elegirnos (1920x1280)"
+    },
+    {
+      "dest": "assets/img/contacto-hoy-equipo-de-negocios.jpg",
+      "src": "https://static.wixstatic.com/media/62f0fae5d3664613b1ad0874c395a7ca.jpg/v1/fit/w_2560,h_2560,q_80/img.jpg",
+      "original": "https://static.wixstatic.com/media/62f0fae5d3664613b1ad0874c395a7ca.jpg",
+      "note": "Fondo de la sección 'Contáctenos hoy' (Equipo de negocios, 5760x3840, se usa al 25% de opacidad)"
+    },
+    {
+      "dest": "assets/img/testimonios/banner-ejecutivo.jpg",
+      "src": "https://static.wixstatic.com/media/69b9733aa75a4b6691008e48d2446115.jpg/v1/fit/w_2560,h_2560,q_85/img.jpg",
+      "original": "https://static.wixstatic.com/media/69b9733aa75a4b6691008e48d2446115.jpg",
+      "note": "Banner de Testimonios (5616x3744; en Wix alineado abajo-izquierda)"
+    },
+    {
+      "dest": "assets/img/servicios/banner-calculadora.jpg",
+      "src": "https://static.wixstatic.com/media/01ec1c4e65f74969b02b47680434f5e5.jpg/v1/fit/w_2560,h_2560,q_85/img.jpg",
+      "original": "https://static.wixstatic.com/media/01ec1c4e65f74969b02b47680434f5e5.jpg",
+      "note": "Banner de Servicios (5054x3370)"
+    },
+    {
+      "dest": "assets/img/servicios/banner-contabilidad.jpg",
+      "src": "https://static.wixstatic.com/media/a787a1_6889c774391041bda8772583b641b4c1~mv2.jpg",
+      "original": "https://static.wixstatic.com/media/a787a1_6889c774391041bda8772583b641b4c1~mv2.jpg",
+      "note": "Banner 01 Contabilidad (1740x1161); también en el popup Contáctanos. El mismo archivo existe en Wix también como d59c19_e609bf829cbb4ca3a96eb9e5ff622648~mv2.jpg (tarjetas \"Conozca además\")."
+    },
+    {
+      "dest": "assets/img/servicios/banner-contraloria.jpg",
+      "src": "https://static.wixstatic.com/media/d59c19_4c02f8e3564c4ec4950e14b406edc5e6~mv2.jpg",
+      "original": "https://static.wixstatic.com/media/d59c19_4c02f8e3564c4ec4950e14b406edc5e6~mv2.jpg",
+      "note": "Banner 02 Contraloría (960x572)"
+    },
+    {
+      "dest": "assets/img/servicios/reunion-de-negocios.jpg",
+      "src": "https://static.wixstatic.com/media/86da6968c96d4516959e0f9cbce5252e.jpg/v1/fit/w_2560,h_2560,q_85/img.jpg",
+      "original": "https://static.wixstatic.com/media/86da6968c96d4516959e0f9cbce5252e.jpg",
+      "note": "Banner 03 Consultoría y tarjeta 03 (7360x4912)"
+    },
+    {
+      "dest": "assets/img/servicios/cta-contacto.jpg",
+      "src": "https://static.wixstatic.com/media/d59c19_f5074913bfe446629d2d9a8d38226ca9~mv2.jpg",
+      "original": "https://static.wixstatic.com/media/d59c19_f5074913bfe446629d2d9a8d38226ca9~mv2.jpg",
+      "note": "Fondo de la caja 'Contáctenos' de las páginas de servicio"
+    },
+    {
+      "dest": "assets/img/servicios/ventajas-contabilidad-izq.jpg",
+      "src": "https://static.wixstatic.com/media/d59c19_0a04d9083dfb40d78e0d47d640e3f11a~mv2.jpg",
+      "original": "https://static.wixstatic.com/media/d59c19_0a04d9083dfb40d78e0d47d640e3f11a~mv2.jpg",
+      "note": "Columna izquierda de 'Ventajas' (Contabilidad), 600x424"
+    },
+    {
+      "dest": "assets/img/servicios/ventajas-contabilidad-der.jpg",
+      "src": "https://static.wixstatic.com/media/d59c19_468ff0aaae964c44a67f022ac01e7ac2~mv2.jpg",
+      "original": "https://static.wixstatic.com/media/d59c19_468ff0aaae964c44a67f022ac01e7ac2~mv2.jpg",
+      "note": "Columna derecha de 'Ventajas' (Contabilidad), 600x424"
+    },
+    {
+      "dest": "assets/img/servicios/ventajas-empresarios.jpg",
+      "src": "https://static.wixstatic.com/media/f5272d46735441f9be2480267f65186c.jpg/v1/fit/w_1600,h_1600,q_85/img.jpg",
+      "original": "https://static.wixstatic.com/media/f5272d46735441f9be2480267f65186c.jpg",
+      "note": "Columna izquierda de 'Ventajas' (Consultoría), 5951x4016"
+    },
+    {
+      "dest": "assets/img/servicios/otros-aguila.jpg",
+      "src": "https://static.wixstatic.com/media/d59c19_44fe54b0374540fbbf59a677e0313e5e~mv2.jpg",
+      "original": "https://static.wixstatic.com/media/d59c19_44fe54b0374540fbbf59a677e0313e5e~mv2.jpg",
+      "note": "Tarjetas 'Conozca además' (960x719)"
+    },
+    {
+      "dest": "assets/img/servicios/otros-consultoria-mini.jpg",
+      "src": "https://static.wixstatic.com/media/a787a1_5740f670595d41e5942adbf6b5905d74~mv2.jpg",
+      "original": "https://static.wixstatic.com/media/a787a1_5740f670595d41e5942adbf6b5905d74~mv2.jpg",
+      "note": "Tarjeta 03 de Contraloría (original de solo 186x209)"
+    },
+    {
+      "dest": "assets/img/social-google-plus.png",
+      "src": "https://static.wixstatic.com/media/05546d0902004bfabba0396e21f33f7d.png/v1/fill/w_60,h_60,al_c/icon.png",
+      "original": "https://static.wixstatic.com/media/05546d0902004bfabba0396e21f33f7d.png",
+      "note": "Ícono del popup Contáctanos"
+    },
+    {
+      "dest": "assets/img/social-youtube.png",
+      "src": "https://static.wixstatic.com/media/78aa2057f0cb42fbbaffcbc36280a64a.png/v1/fill/w_60,h_60,al_c/icon.png",
+      "original": "https://static.wixstatic.com/media/78aa2057f0cb42fbbaffcbc36280a64a.png",
+      "note": "Ícono del popup Contáctanos"
+    },
+    {
+      "dest": "assets/img/social-facebook.png",
+      "src": "https://static.wixstatic.com/media/0fdef751204647a3bbd7eaa2827ed4f9.png/v1/fill/w_60,h_60,al_c/icon.png",
+      "original": "https://static.wixstatic.com/media/0fdef751204647a3bbd7eaa2827ed4f9.png",
+      "note": "Ícono del popup Contáctanos"
+    },
+    {
+      "dest": "assets/img/social-linkedin.png",
+      "src": "https://static.wixstatic.com/media/6ea5b4a88f0b4f91945b40499aa0af00.png/v1/fill/w_60,h_60,al_c/icon.png",
+      "original": "https://static.wixstatic.com/media/6ea5b4a88f0b4f91945b40499aa0af00.png",
+      "note": "Ícono del popup Contáctanos"
     }
   ],
   "fonts": [
@@ -87,6 +249,11 @@
       "dest": "assets/fonts/barlow-400.woff2",
       "src": "https://static.parastorage.com/tag-bundler/api/v1/fonts-cache/googlefont/woff2/s/barlow/v1/2woyxyDnPU0v4IiqYU9D1g.woff2",
       "note": "Barlow (OFL): la cara 'bold' de 'barlow-extralight' de Wix = Barlow Regular (subtítulo del hero)"
+    },
+    {
+      "dest": "assets/fonts/open-sans-italic-400.woff2",
+      "src": "https://static.parastorage.com/fonts/v2/e3af1b1e-e84c-47bd-96ed-ea490697a5d3/v1/open%20sans.woff2",
+      "note": "Open Sans Italic (Apache 2.0), copia que sirve Wix (frases en cursiva de las páginas de servicio)"
     }
   ],
   "google_fonts": [

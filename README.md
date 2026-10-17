@@ -8,10 +8,20 @@ descargadas al repo.
 
 ## Estado
 
+Todas las páginas copiadas se verificaron contra el original con capturas a 1440 px (diff de píxeles por región)
+y se revisaron en móvil (390 px) sin desborde horizontal.
+
 | Página | Ruta | Estado |
 |---|---|---|
-| Inicio | `/` | ✅ copiada y verificada contra el original (escritorio + móvil) |
-| Resto del sitio (equipo, servicios, testimonios, contacto, FAQ, blog…) | `/<slug>/` | en progreso |
+| Inicio | `/` | ✅ |
+| Equipo de trabajo | `/equipo-trabajo/` | ✅ |
+| Por qué elegirnos | `/por-que-elegirnos/` | ✅ |
+| Testimonios | `/testimonios/` | ✅ |
+| Servicios | `/servicios-contabilidad/` | ✅ |
+| 01 Contabilidad financiera y asesoría tributaria | `/contabilidad-financiera-tributaria/` | ✅ (incluye popup "Contáctanos") |
+| 02 Contraloría contable y financiera | `/contraloria-contable-y-financiera/` | ✅ |
+| 03 Consultoría | `/consultoria/` | ✅ |
+| Contacto, Preguntas frecuentes, Trabaja con nosotros, Gracias, Noticias (blog) | | en progreso |
 
 ## Verlo en local
 

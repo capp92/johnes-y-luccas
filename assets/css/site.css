@@ -17,12 +17,14 @@
    descent 35%, medidas en el navegador). Así el texto cae en la misma posición que en
    el original dentro de cada línea. Sin esto Barlow queda 0.15em más abajo. */
 @font-face { font-family: "Barlow DIN"; src: url("../fonts/barlow-300.woff2") format("woff2"); font-weight: 300; font-style: normal; font-display: swap; ascent-override: 85%; descent-override: 35%; line-gap-override: 0%; }
+@font-face { font-family: "Barlow DIN"; src: url("../fonts/barlow-400.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; ascent-override: 85%; descent-override: 35%; line-gap-override: 0%; }
 @font-face { font-family: "Barlow DIN"; src: url("../fonts/barlow-500.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; ascent-override: 85%; descent-override: 35%; line-gap-override: 0%; }
 @font-face { font-family: "Barlow DIN"; src: url("../fonts/barlow-600.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; ascent-override: 85%; descent-override: 35%; line-gap-override: 0%; }
 /* Barlow "real" (sin overrides): en el original el subtítulo del hero ya es Barlow. */
 @font-face { font-family: "Barlow"; src: url("../fonts/barlow-400.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: "Cormorant Garamond"; src: url("../fonts/cormorant-garamond-300.woff2") format("woff2"); font-weight: 300; font-style: normal; font-display: swap; }
 @font-face { font-family: "Roboto"; src: url("../fonts/roboto-700.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Open Sans"; src: url("../fonts/open-sans-italic-400.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
 
 :root {
   --c-blanco: #ffffff;
@@ -42,7 +44,7 @@
   --f-texto: "Barlow DIN", "Helvetica Neue", Arial, sans-serif;
   --f-barlow: "Barlow", "Helvetica Neue", Arial, sans-serif;
   --w-texto: 300;
-  --w-texto-bold: 500;          /* "bold" de DIN Light en Wix es negrita sintética: se ve ~500 */
+  --w-texto-bold: 400;          /* "bold" de DIN Light en Wix es negrita sintética: en ancho y grosor ≈ Barlow 400 */
   --f-titulo: "Anton", Impact, "Arial Narrow", sans-serif;
   --f-logo: "Optimus Princeps", "Trajan Pro", Georgia, serif;
   --f-serif: "Cormorant Garamond", Georgia, serif;
@@ -196,6 +198,11 @@ button, input, textarea, select { font: inherit; color: inherit; }
   .js .float-in:not(.is-in) { opacity: 0; }
   .js .float-in.is-in { animation: jl-float-in 1200ms 1ms var(--ease-wix) backwards; }
 }
+@media (prefers-reduced-motion: no-preference) {
+  .js .fade-in:not(.is-in) { opacity: 0; }
+  .js .fade-in.is-in { animation: jl-fade-in 1200ms 1ms var(--ease-wix) backwards; }
+}
+@keyframes jl-fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
 @keyframes jl-float-in {
   0% { opacity: 0; transform: translateY(60px); }
   100% { opacity: 1; transform: translateY(0); }
@@ -211,7 +218,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
 }
 .form__field::placeholder { color: var(--c-gris); opacity: 1; }
 .form__field:invalid:not(:placeholder-shown) { border-color: #8b0000; }
-textarea.form__field { height: 130px; margin-bottom: 8px; padding: 3px 10px 3px 5px; resize: none; }
+textarea.form__field { height: 130px; margin-bottom: 8px; padding: 10.5px 10px 3px 5px; resize: none; }
 .form__footer { display: flex; justify-content: space-between; align-items: flex-start; min-height: 32px; }
 .form__status { min-height: 17px; margin-top: 0; font: 14px/17px "Helvetica Neue", Helvetica, Arial, sans-serif; color: rgb(186, 218, 85); }
 .form__status.is-error { color: #ff4040; }
@@ -271,11 +278,224 @@ textarea.form__field { height: 130px; margin-bottom: 8px; padding: 3px 10px 3px 
 .home-contacto .form { position: absolute; left: 408px; top: 171px; width: 479px; }
 
 /* ==========================================================================
+   Componentes de subpáginas
+   ========================================================================== */
+/* Banner: foto con velo turquesa (fondo color_19 + imagen con opacidad), monograma y título. */
+.page-banner { position: relative; overflow: hidden; height: var(--banner-h, 300px); background: var(--c-turquesa); }
+.page-banner__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: var(--banner-op, .53); }
+.page-banner__inner { position: relative; width: var(--wrap); height: 100%; margin: 0 auto; }
+.page-banner .jl-badge { position: absolute; left: var(--badge-x, 452px); top: var(--badge-y, 72px); margin: 0; }
+.page-banner__title { position: absolute; left: var(--title-x, 20px); top: var(--title-y, 166px); width: 940px; text-align: center; font: 48px/67.2px var(--f-titulo); color: var(--c-humo); }
+.page-banner__sub { position: absolute; left: var(--sub-x, 231px); top: var(--sub-y, 219px); width: var(--sub-w, 510px); text-align: center; font: var(--w-texto) 24px/29px var(--f-texto); color: var(--c-humo); }
+
+/* Escenario: réplica del layout absoluto de Wix. Cada hijo .at lleva --x/--y/--w/--h
+   (px medidos en el original, relativos al contenedor de 980px). En móvil pasa a flujo normal. */
+.stage { position: relative; width: var(--wrap); height: var(--stage-h, auto); margin: 0 auto; }
+.at { position: absolute; left: var(--x, 0px); top: var(--y, 0px); width: var(--w, auto); height: var(--h, auto); }
+
+/* Texto enriquecido (preset font_9 de Wix: 16px / 1.4) */
+.rt p, .rt li { font-size: 16px; line-height: 22.4px; }
+/* Listas Wix: ul con margen 0.5em y li con 1.3em (relativos a su font-size). */
+.rt ul { margin: 0 0 0 .5em; padding: 0; list-style: disc; }
+.rt li { margin-left: 1.3em; }
+.rt li::marker { color: var(--c-tinta); }
+.rt .lbl { color: var(--c-turquesa); }
+.rt .just { text-align: justify; }
+
+/* Botón sólido turquesa (Wix: fondo color_19, hover color_17) */
+.btn-solid {
+  display: flex; align-items: center; justify-content: center; height: 55px;
+  background: var(--c-turquesa); color: var(--c-humo); font: var(--w-texto) 16px/1.4 var(--f-texto); text-decoration: none;
+  transition: background-color .4s ease 0s, color .4s ease 0s;
+}
+.btn-solid:hover { background: var(--c-celeste-medio); }
+.btn-outline--anton { font-family: var(--f-titulo); font-weight: 400; }
+
+/* ==========================================================================
+   EQUIPO DE TRABAJO
+   ========================================================================== */
+.equipo-banner { --banner-h: 300px; --badge-x: 451px; --badge-y: 72px; --title-y: 166px; }
+.equipo-socios { --stage-h: 1556px; }
+.perfil__head h2 { font: 32px/44.8px var(--f-titulo); color: var(--c-tinta); }
+.perfil__head p { font: var(--w-texto-bold) 20px/28px var(--f-texto); color: var(--c-turquesa); }
+.perfil__foto { margin: 0; }
+.perfil__foto > img { width: 100%; height: 100%; object-fit: cover; }
+.perfil__foto::after { content: ""; position: absolute; inset: 0; background: rgba(0, 160, 175, .12); pointer-events: none; }
+.perfil__linkedin { position: absolute; left: var(--li-x); top: var(--li-y); z-index: 1; width: 60px; height: 60px; }
+.perfil__linkedin img { width: 60px; height: 60px; }
+.equipo-rule { height: 1px; margin: 0; border: 0; background: var(--c-turquesa-medio); }
+.unete__title { font: 49px/72px var(--f-titulo); color: var(--c-tinta); white-space: nowrap; }
+.unete__chevron { position: absolute; left: 706px; top: 16px; width: 42px; height: 42px; fill: var(--c-tinta); }
+.unete__cta { height: 67px; }
+.equipo-staff { height: 958px; background: var(--c-turquesa); color: var(--c-humo); }
+.equipo-staff .stage { height: 100%; }
+.staff__foto { object-fit: cover; }
+.staff__txt h3 { font: 32px/44.8px var(--f-titulo); }
+.staff__txt p { font: var(--w-texto-bold) 20px/28px var(--f-texto); }
+
+/* ==========================================================================
+   Sección "Contáctenos hoy" (partial contacto-hoy): fondo color_18 + foto al 25%
+   Se repite en varias subpáginas; solo cambia el subtítulo.
+   ========================================================================== */
+/* Alto y opacidad de la foto varían por página (337px/.25 o 336px/.38): vienen del partial. */
+.contacto-hoy { position: relative; overflow: hidden; height: var(--ch-h, 337px); background: var(--c-turquesa-medio); color: var(--c-tinta); }
+.contacto-hoy__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: var(--ch-op, .25); }
+.contacto-hoy__stage { height: 100%; }
+/* Anton con line-height "normal" en Wix = 1.4688em (59px -> 87px, 23px -> 33.8px). */
+.contacto-hoy__title { font: 59px/87px var(--f-titulo); }
+.contacto-hoy__sub { font: 23px/33.8px var(--f-titulo); }
+.contacto-hoy__tel p { font: var(--w-texto-bold) 20px/24px var(--f-texto); }
+.contacto-hoy__tel a { text-decoration: none; }
+.form--oscuro .form__field { border-color: var(--c-tinta); }
+.form--oscuro .form__submit { background: var(--c-tinta); color: var(--c-humo); }
+
+/* ==========================================================================
+   POR QUÉ ELEGIRNOS
+   ========================================================================== */
+.porque-banner { --banner-h: 304px; --badge-x: 453px; --badge-y: 64px; --title-y: 168px; --banner-op: .46; }
+.porque-body { --stage-h: 783px; }
+.porque-intro { font: 32px/47px var(--f-titulo); color: var(--c-tinta); text-align: justify; }
+.porque-col-title { font: 32px/47px var(--f-titulo); color: var(--c-turquesa); text-align: justify; }
+/* Estos textos no fijan line-height en Wix: "normal" de DIN = 1.2 */
+.porque-items { text-align: justify; }
+.porque-items h4 { font: var(--w-texto-bold) 20px/24px var(--f-texto); color: var(--c-turquesa); }
+.porque-items p { font-size: 16px; line-height: 19.2px; }
+.porque-line { width: 1px; margin: 0; border: 0; background: var(--c-turquesa-medio); }
+
+/* ==========================================================================
+   TESTIMONIOS
+   ========================================================================== */
+.testimonios-banner { --banner-h: 305px; --badge-x: 451px; --badge-y: 72px; --title-y: 169px; --banner-op: .59; }
+.testimonios-banner .page-banner__img { object-position: left bottom; } /* Wix: alineación "bottom_left" */
+.testimonios-cards { height: 606px; }
+.testimonios-cards .stage { height: 100%; }
+.tcard { margin: 0; }
+.tcard--gris { background: var(--c-gris); color: var(--c-humo); --tc-name: var(--c-celeste); }
+.tcard--turquesa { background: var(--c-turquesa); color: var(--c-tinta); --tc-name: var(--c-tinta); }
+.tcard__name { text-align: center; color: var(--tc-name); font-size: 20px; line-height: 24px; }
+.tcard__name strong { font-weight: var(--w-texto-bold); }
+.tcard__quote { margin: 0; text-align: center; font-size: 19px; line-height: 22.8px; }
+.tcard__mark { fill: var(--tc-name); transform: rotate(180deg); } /* en Wix el vector está rotado 180° (comillas de cierre) */
+
+/* ==========================================================================
+   SERVICIOS (servicios-contabilidad)
+   Tres columnas a todo el ancho (como el "column strip" de Wix); el contenido de
+   cada una mide 326px y va centrado en su columna.
+   ========================================================================== */
+.servicios-banner { --banner-h: 336px; --badge-x: 451px; --badge-y: 72px; --title-x: 16px; --title-y: 152px; --banner-op: .55; }
+.servicios-cols { display: grid; grid-template-columns: repeat(3, 1fr); height: 657px; margin: 49px 0 42px; }
+.scol { position: relative; }
+.scol--gris { background: #e3e6e8; }
+.scol--claro { background: var(--c-humo); }
+.scol__inner { position: absolute; top: 0; left: 50%; width: 326px; height: 100%; margin-left: -163px; text-align: center; }
+.scol__inner .at { left: 0; right: 0; width: auto; }
+.scol__num { font: 60px/88px var(--f-titulo); color: var(--c-gris); }
+.scol__title { font: 32px/47px var(--f-titulo); }
+.scol__title a { color: var(--c-turquesa); text-decoration: none; }
+.scol__tag p { font-size: 20px; line-height: 24px; color: var(--c-tinta); }
+.scol__tag p.s19 { font-size: 19px; line-height: 22.8px; }
+.scol__tag p.t { font-size: 18px; line-height: 21.6px; color: var(--c-turquesa); }
+.scol__body { text-align: justify; }
+.scol__body p { font-size: 16px; line-height: 19.2px; }
+.scol__inner .scol__btn { left: 50%; right: auto; width: var(--w); height: 40px; transform: translateX(-50%); }
+
+/* ==========================================================================
+   PÁGINAS DE SERVICIO (01 Contabilidad, 02 Contraloría, 03 Consultoría)
+   Misma plantilla en las tres; lo que cambia por página (alturas, columnas,
+   posiciones) va en variables inline en _src/pages/<servicio>.html.
+   ========================================================================== */
+.svc-banner__num { font: 66px/92.4px var(--f-titulo); color: var(--c-humo); text-align: center; }
+.svc-banner__num--64 { font-size: 64px; line-height: 89.6px; }
+.svc-banner__title { font: 48px/67.2px var(--f-titulo); color: var(--c-humo); text-align: center; }
+.svc-banner__title--2l { line-height: 70.5px; } /* Anton 48 con line-height "normal" */
+
+.svc-alcance__title { font: 35px/51.4px var(--f-titulo); letter-spacing: 1.75px; color: var(--c-tinta); }
+.svc-alcance__lead { font: 31px/45.5px var(--f-titulo); color: var(--c-turquesa); text-align: justify; }
+.svc-list { font-weight: var(--w-texto-bold); color: var(--c-turquesa); }
+.svc-list ul { margin: 0 0 0 .5em; padding: 0; list-style: disc; }
+.svc-list li { margin-left: 1.3em; }
+.svc-list--contabilidad ul { font-size: 19px; }
+.svc-list--contabilidad li { font-size: 20px; line-height: 26px; }
+.svc-list--contraloria { font-size: 19px; }
+.svc-list--contraloria p, .svc-list--contraloria li { line-height: 30.4px; }
+.svc-list--contraloria li.lh17 { line-height: 32.3px; }
+.svc-list--contraloria li.lhn { line-height: 22.8px; }
+.svc-list--consultoria { color: var(--c-turquesa-medio); }
+.svc-list--consultoria ul { font-size: 20px; }
+.svc-list--consultoria li { line-height: 32px; }
+.svc-list2 { font-size: 16px; line-height: 19.2px; color: var(--c-tinta); }
+.svc-list2 ul { margin: 0 0 0 .5em; padding: 0; list-style: disc; }
+.svc-list2 li { margin-left: 1.3em; }
+.svc-list2 .ind { margin-left: 80px; }
+.svc-rule { height: 1px; margin: 0; border: 0; background: var(--c-turquesa-medio); }
+
+.svc-cta { overflow: hidden; color: var(--c-humo); text-align: center; }
+.svc-cta__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% var(--cta-pos, 9%); }
+.svc-cta__title { position: absolute; left: 34px; top: var(--t-y); width: 414px; font: 32px/47px var(--f-titulo); }
+.svc-cta__text { position: absolute; left: 24px; top: var(--s-y); width: 433px; font-size: 20px; line-height: 24px; }
+.svc-cta__btn { position: absolute; left: var(--b-x); top: var(--b-y); width: 142px; height: 40px; }
+
+.svc-dirigido { position: relative; height: var(--h); background: var(--c-celeste-medio); color: var(--c-tinta); text-align: center; }
+.svc-dirigido .stage { height: 100%; }
+.svc-dirigido__title { font: 32px/47px var(--f-titulo); }
+.svc-dirigido__line { height: 3px; margin: 0; border: 0; background: var(--c-blanco); }
+.svc-dirigido__text { font-size: var(--fs, 20px); line-height: 1.2; }
+
+.svc-ventajas { display: grid; grid-template-columns: var(--cols); height: var(--h); margin-top: var(--mt); }
+.svc-ventajas__side { background: var(--c-turquesa-medio); --parallax-media-h: var(--h); }
+.svc-ventajas__main { position: relative; background: #f0f3f5; }
+.svc-ventajas__inner { position: absolute; top: 0; left: 50%; width: var(--iw, 392px); height: 100%; margin-left: calc(var(--iw, 392px) / -2); }
+.svc-ventajas__inner .at { left: 0; width: 100%; }
+.svc-ventajas__title { font: 32px/47px var(--f-titulo); color: var(--c-tinta); text-align: center; }
+.svc-ventajas__list { font-size: 17px; text-align: justify; color: var(--c-tinta); }
+.svc-ventajas__list ul { margin: 0 0 0 .5em; padding: 0; list-style: disc; }
+.svc-ventajas__list li { margin-left: 1.3em; line-height: 22.1px; }
+.svc-ventajas__list--16 { font-size: 16px; }
+.svc-ventajas__list--16 li { line-height: 20.8px; }
+.svc-ventajas__list li.s16 { font-size: 16px; line-height: 19.2px; }
+/* El h6 de Wix es Anton 27px: su line-height "normal" (39.66px) manda sobre la Open Sans de adentro. */
+.svc-ventajas__quote { font: italic 400 27px/39.66px "Open Sans", Georgia, serif; color: var(--c-tinta); text-align: center; }
+.svc-ventajas__inner .svc-ventajas__btn { left: 50%; width: var(--bw); height: 39px; transform: translateX(-50%); }
+
+.svc-otros { display: grid; grid-template-columns: var(--cols); height: var(--h); margin: var(--mt) 0 var(--mb, 0); }
+.svc-otros__col { position: relative; overflow: hidden; }
+.svc-otros__intro { position: absolute; left: var(--x); top: var(--y); width: var(--w); font: 48px/70.5px var(--f-titulo); }
+.svc-otros__intro a { color: var(--c-blanco); text-decoration: none; }
+.svc-otros__card { display: block; color: var(--c-humo); text-decoration: none; text-align: center; }
+.svc-otros__card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .27; }
+.svc-otros__num { position: absolute; left: 0; right: 0; top: var(--y1); font: 66px/97px var(--f-titulo); }
+.svc-otros__name { position: absolute; left: 50%; top: var(--y2); width: var(--nw, 265px); margin-left: calc(var(--nw, 265px) / -2); font: 24px/var(--nlh, 35.25px) var(--f-titulo); }
+
+/* Popup "CONTÁCTANOS" (lightbox de Wix): <dialog> nativo */
+.contact-dialog { width: 714px; max-width: calc(100vw - 32px); height: 405px; max-height: calc(100vh - 32px); padding: 0; border: 0; background: var(--c-blanco); color: #2a2a2a; overflow: visible; }
+.contact-dialog::backdrop { background: rgba(0, 80, 88, .49); }
+.contact-dialog[open] { display: grid; grid-template-columns: 250px 1fr; }
+.contact-dialog__aside { position: relative; background: var(--c-turquesa-medio); }
+.contact-dialog__aside img { position: absolute; left: 0; top: 114px; width: 250px; height: 166px; object-fit: cover; }
+.contact-dialog__aside p { position: absolute; left: 11px; top: 332px; width: 227px; text-align: center; font: 400 12px/14.4px var(--f-barlow); letter-spacing: .6px; color: var(--c-humo); }
+.contact-dialog__main { position: relative; }
+.contact-dialog__close { position: absolute; right: 10px; top: 15px; width: 20px; height: 20px; padding: 0; border: 0; background: none; cursor: pointer; }
+.contact-dialog__close svg { width: 20px; height: 20px; fill: #000; }
+.contact-dialog__title { position: absolute; left: 0; top: 35px; width: 464px; text-align: center; font: 41px/60px var(--f-titulo); letter-spacing: 16.4px; color: var(--c-turquesa); }
+.contact-dialog .form { position: absolute; left: 30px; top: 134px; width: 404px; display: grid; grid-template-columns: 202px 197px; column-gap: 5px; }
+.contact-dialog .form__field { height: 31px; margin: 0 0 5px; border: 1px solid #000; background: transparent; color: #2a2a2a; }
+.contact-dialog .form__field[name="email"] { grid-column: 1; }
+/* Orden en el DOM = orden de tabulación del original (Nombre, E-mail, Mensaje); la grilla pone Mensaje a la derecha. */
+.contact-dialog textarea.form__field { grid-column: 2; grid-row: 1 / span 2; height: 67px; margin: 0; }
+.contact-dialog .form__footer { grid-column: 1 / -1; margin-top: 0; }
+.contact-dialog .form__submit { width: 55px; min-width: 0; height: 29px; font-size: 14px; color: var(--c-blanco); background: var(--c-turquesa); }
+.contact-dialog__social { position: absolute; left: 163px; top: 263px; display: flex; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.contact-dialog__social img { width: 30px; height: 30px; }
+.contact-dialog__foot { position: absolute; left: 0; top: 314px; width: 465px; text-align: center; font: 400 15px/18px var(--f-barlow); color: #000; }
+.contact-dialog__foot a { color: #000; text-decoration: none; }
+
+/* ==========================================================================
    MÓVIL (< 980px) — replica la versión móvil de Wix (layout de 320px escalado)
    ========================================================================== */
 @media (max-width: 979px) {
   :root { --m: min(calc(100vw / 320), 1.6px); }
-  body { min-width: 0; }
+  /* Los textos de Wix traen cadenas de &nbsp; que en columnas angostas no caben: se permite cortarlas. */
+  body { min-width: 0; overflow-wrap: break-word; }
   .wrap { width: 100%; }
   .parallax__img { height: 100%; } /* Wix no aplica parallax en móvil */
 
@@ -383,6 +603,137 @@ textarea.form__field { height: 130px; margin-bottom: 8px; padding: 3px 10px 3px 
   .contact-info { margin-top: calc(10 * var(--m)); font-size: calc(16 * var(--m)); }
   .contact-info__label { font-size: calc(18 * var(--m)); }
   .home-contacto .form { margin-top: calc(24 * var(--m)); }
+
+  /* --- Componentes de subpáginas (móvil) --- */
+  .page-banner { height: calc(var(--banner-mh, 115) * var(--m)); }
+  .page-banner__inner { width: 100%; }
+  .page-banner .jl-badge { display: none; }
+  .page-banner__title { left: calc(10 * var(--m)); right: calc(10 * var(--m)); width: auto; top: calc(var(--title-my, 33) * var(--m)); font-size: calc(33 * var(--m)); line-height: calc(46.2 * var(--m)); }
+  .stage { width: auto; height: auto; padding: 0 calc(20 * var(--m)); }
+  /* left/top: auto para que los .at que en móvil pasan a position: relative no hereden las coordenadas de escritorio. */
+  .at { position: static; left: auto; top: auto; width: auto; height: auto; }
+  .rt p, .rt li { font-size: calc(16 * var(--m)); line-height: calc(22.4 * var(--m)); }
+  .rt ul { margin-left: calc(8 * var(--m)); }
+  .rt li { margin-left: calc(20.8 * var(--m)); }
+  .btn-solid { height: calc(55 * var(--m)); font-size: calc(16 * var(--m)); }
+
+  /* --- Equipo de trabajo (móvil) --- */
+  .equipo-socios { padding-top: calc(28 * var(--m)); }
+  .perfil { margin-bottom: calc(40 * var(--m)); }
+  .perfil__foto { position: relative; height: calc(264 * var(--m)); }
+  .perfil__linkedin { left: calc(14 * var(--m)); top: calc(14 * var(--m)); width: calc(60 * var(--m)); height: calc(60 * var(--m)); }
+  .perfil__linkedin img { width: 100%; height: 100%; }
+  .perfil__head { margin-top: calc(25 * var(--m)); }
+  .perfil__head h2 { font-size: calc(28 * var(--m)); line-height: calc(39.2 * var(--m)); }
+  .perfil__head p { font-size: calc(20 * var(--m)); line-height: calc(28 * var(--m)); }
+  .perfil__bio { margin-top: calc(18 * var(--m)); }
+  .perfil__cta { margin-top: calc(12 * var(--m)); }
+  .equipo-rule { margin: calc(-10 * var(--m)) 0 calc(36 * var(--m)); }
+  .unete { padding-bottom: calc(70 * var(--m)); text-align: center; }
+  .unete__title { font-size: calc(25 * var(--m)); line-height: calc(36.5 * var(--m)); white-space: normal; }
+  .unete__chevron { position: static; display: inline-block; width: calc(24 * var(--m)); height: calc(24 * var(--m)); margin-left: calc(4 * var(--m)); vertical-align: calc(-3 * var(--m)); }
+  .unete__cta { height: calc(42 * var(--m)); margin-top: calc(10 * var(--m)); }
+  .equipo-staff { height: auto; padding: calc(24 * var(--m)) 0 calc(30 * var(--m)); }
+  .equipo-staff .stage { padding: 0 calc(23 * var(--m)); }
+  .staff { position: relative; margin-bottom: calc(23 * var(--m)); }
+  .staff__foto { display: block; width: 100%; height: calc(285 * var(--m)); }
+  .staff__txt { position: absolute; right: calc(9 * var(--m)); bottom: calc(10 * var(--m)); left: calc(9 * var(--m)); text-align: right; text-shadow: 0 0 calc(6 * var(--m)) rgba(0, 0, 0, .25); }
+  .staff__txt h3 { font-size: calc(26 * var(--m)); line-height: calc(36.4 * var(--m)); }
+  .staff__txt p { font-size: calc(19 * var(--m)); line-height: calc(26.6 * var(--m)); }
+
+  /* --- Contáctenos hoy (móvil) --- */
+  .contacto-hoy { height: auto; padding: calc(20 * var(--m)) 0 calc(21 * var(--m)); }
+  .contacto-hoy__title { font-size: calc(28 * var(--m)); line-height: calc(41 * var(--m)); }
+  .contacto-hoy__sub { margin-top: calc(10 * var(--m)); font-size: calc(17 * var(--m)); line-height: calc(25 * var(--m)); }
+  .contacto-hoy__tel { margin-top: calc(10 * var(--m)); }
+  .contacto-hoy__tel p { font-size: calc(17 * var(--m)); line-height: calc(20.6 * var(--m)); }
+  .contacto-hoy__form { margin-top: calc(19 * var(--m)); }
+  .form--oscuro .form__field { height: calc(45 * var(--m)); margin-bottom: calc(15 * var(--m)); font-size: calc(16 * var(--m)); }
+  .form--oscuro textarea.form__field { height: calc(150 * var(--m)); margin-bottom: calc(13 * var(--m)); font-size: calc(14 * var(--m)); }
+
+  /* --- Por qué elegirnos (móvil) --- */
+  .porque-banner { --banner-mh: 88; --title-my: 20; }
+  .porque-body { padding-top: calc(20 * var(--m)); padding-bottom: calc(19 * var(--m)); }
+  .porque-intro { font-size: calc(18 * var(--m)); line-height: calc(26.6 * var(--m)); text-align: center; }
+  .porque-col-title { margin-top: calc(16 * var(--m)); font-size: calc(28 * var(--m)); line-height: calc(41 * var(--m)); }
+  .porque-items { margin-top: calc(8 * var(--m)); text-align: left; }
+  .porque-items h4 { font-size: calc(18 * var(--m)); line-height: calc(21.6 * var(--m)); }
+  .porque-items p { font-size: calc(14 * var(--m)); line-height: calc(16.8 * var(--m)); }
+  .porque-line { width: auto; height: 1px; margin-top: calc(21 * var(--m)); }
+
+  /* --- Testimonios (móvil): tarjetas apiladas a ancho completo --- */
+  .testimonios-banner { --banner-mh: 98; --title-my: 32; }
+  .testimonios-cards { height: auto; padding: 0 0 calc(35 * var(--m)); }
+  .testimonios-cards .stage { padding: 0; }
+  .tcard { position: relative; margin-bottom: calc(25 * var(--m)); padding: calc(19 * var(--m)) calc(12 * var(--m)) calc(24 * var(--m)); }
+  .tcard__name { font-size: calc(20 * var(--m)); line-height: calc(24 * var(--m)); }
+  .tcard__quote { margin: calc(16 * var(--m)) calc(34 * var(--m)) 0; font-size: calc(17.5 * var(--m)); line-height: calc(21 * var(--m)); }
+  .tcard__mark { display: block; width: calc(34 * var(--m)); height: calc(32 * var(--m)); margin: calc(16 * var(--m)) auto 0; }
+
+  /* --- Servicios (móvil): columnas apiladas --- */
+  .page-banner__sub { left: calc(10 * var(--m)); right: calc(10 * var(--m)); width: auto; top: calc(var(--sub-my, 76) * var(--m)); font-size: calc(19 * var(--m)); line-height: calc(22.5 * var(--m)); }
+  .servicios-banner { --banner-mh: 131; --title-my: 20; }
+  .servicios-cols { display: block; height: auto; margin: 0; }
+  .scol__inner { position: static; width: auto; height: auto; margin: 0; padding: calc(11 * var(--m)) calc(20 * var(--m)) calc(10 * var(--m)); }
+  .scol__num { font-size: calc(28 * var(--m)); line-height: calc(41 * var(--m)); }
+  .scol--claro .scol__num, .scol:last-child .scol__num { font-size: calc(35 * var(--m)); line-height: calc(52 * var(--m)); }
+  .scol__title { margin-top: calc(10 * var(--m)); font-size: calc(21 * var(--m)); line-height: calc(31 * var(--m)); }
+  .scol__tag { margin-top: calc(10 * var(--m)); }
+  .scol__tag p, .scol__tag p.s19 { font-size: calc(17 * var(--m)); line-height: calc(20.4 * var(--m)); }
+  .scol__tag p.t { font-size: calc(16 * var(--m)); line-height: calc(19.2 * var(--m)); }
+  .scol__body { margin-top: calc(10 * var(--m)); }
+  .scol__body p { font-size: calc(16 * var(--m)); line-height: calc(19.2 * var(--m)); }
+  .scol__inner .scol__btn { width: calc(120 * var(--m)); height: calc(42 * var(--m)); margin: calc(10 * var(--m)) auto 0; transform: none; }
+  .scol:last-child .scol__btn { width: calc(200 * var(--m)); }
+
+  /* --- Páginas de servicio (móvil) --- */
+  .svc-banner { height: auto; padding: calc(20 * var(--m)) calc(10 * var(--m)) calc(26 * var(--m)); }
+  .svc-banner .page-banner__inner { height: auto; }
+  .svc-banner .at { position: relative; }
+  .svc-banner__num, .svc-banner__num--64 { font-size: calc(40 * var(--m)); line-height: calc(56 * var(--m)); }
+  .svc-banner__title, .svc-banner__title--2l { margin-top: calc(10 * var(--m)); font-size: calc(27 * var(--m)); line-height: calc(39.7 * var(--m)); }
+  .svc-alcance { padding: calc(39 * var(--m)) calc(20 * var(--m)) calc(10 * var(--m)); }
+  .svc-alcance__title { font-size: calc(31 * var(--m)); line-height: calc(46 * var(--m)); letter-spacing: calc(1.55 * var(--m)); }
+  .svc-alcance__lead { margin-top: calc(24 * var(--m)); font-size: calc(27 * var(--m)); line-height: calc(39.7 * var(--m)); text-align: center; }
+  .svc-list { margin-top: calc(10 * var(--m)); }
+  .svc-list--contabilidad ul, .svc-list--contraloria, .svc-list--consultoria ul { font-size: calc(16 * var(--m)); }
+  .svc-list--contabilidad li, .svc-list--contraloria p, .svc-list--contraloria li, .svc-list--contraloria li.lh17, .svc-list--contraloria li.lhn, .svc-list--consultoria li { font-size: calc(16 * var(--m)); line-height: calc(20.8 * var(--m)); }
+  .svc-list2 { margin-top: calc(16 * var(--m)); font-size: calc(15 * var(--m)); line-height: calc(18 * var(--m)); }
+  .svc-list2 .ind { margin-left: calc(40 * var(--m)); }
+  .svc-rule { margin-top: calc(14 * var(--m)); }
+  .svc-cta { position: relative; height: calc(159 * var(--m)); margin-top: calc(10 * var(--m)); }
+  .svc-cta__title { left: 0; right: 0; width: auto; top: calc(7 * var(--m)); font-size: calc(30 * var(--m)); line-height: calc(44 * var(--m)); }
+  .svc-cta__text { left: calc(20 * var(--m)); right: calc(20 * var(--m)); width: auto; top: calc(55 * var(--m)); font-size: calc(19 * var(--m)); line-height: calc(22.8 * var(--m)); }
+  .svc-cta__btn { left: 50%; top: calc(109 * var(--m)); width: calc(200 * var(--m)); height: calc(42 * var(--m)); margin-left: calc(-100 * var(--m)); }
+  .svc-dirigido { height: auto; margin-top: calc(30 * var(--m)); padding: calc(39 * var(--m)) 0 calc(36 * var(--m)); }
+  .svc-dirigido__title { font-size: calc(22 * var(--m)); line-height: calc(32 * var(--m)); }
+  .svc-dirigido__line { width: calc(42 * var(--m)); margin: calc(14 * var(--m)) auto calc(11 * var(--m)); }
+  .svc-dirigido__text { font-size: calc(18 * var(--m)); line-height: calc(21.6 * var(--m)); }
+  .svc-ventajas { display: block; height: auto; margin-top: calc(10 * var(--m)); }
+  .svc-ventajas__side { height: calc(200 * var(--m)); }
+  .svc-ventajas__inner { position: static; width: auto; height: auto; margin: 0; padding: calc(27 * var(--m)) calc(20 * var(--m)) calc(27 * var(--m)); }
+  .svc-ventajas__title { font-size: calc(38 * var(--m)); line-height: calc(37 * var(--m)); }
+  .svc-ventajas__list, .svc-ventajas__list--16 { margin-top: calc(11 * var(--m)); font-size: calc(16 * var(--m)); }
+  .svc-ventajas__list li, .svc-ventajas__list--16 li, .svc-ventajas__list li.s16 { font-size: calc(16 * var(--m)); line-height: calc(20.8 * var(--m)); }
+  .svc-ventajas__quote { margin-top: calc(20 * var(--m)); font-size: calc(20 * var(--m)); line-height: calc(29.4 * var(--m)); }
+  .svc-ventajas__inner .svc-ventajas__btn { display: flex; width: calc(151 * var(--m)); height: calc(34 * var(--m)); margin: calc(25 * var(--m)) auto 0; transform: none; }
+  .svc-otros { display: block; height: auto; margin-top: calc(30 * var(--m)); }
+  .svc-otros__col { min-height: calc(116 * var(--m)); }
+  .svc-otros__intro { position: static; width: auto; padding: calc(20 * var(--m)); text-align: center; font-size: calc(26 * var(--m)); line-height: calc(38 * var(--m)); }
+  .svc-otros__card { height: calc(136 * var(--m)); }
+  .svc-otros__num { top: calc(8 * var(--m)); font-size: calc(36 * var(--m)); line-height: calc(53 * var(--m)); }
+  .svc-otros__name { left: calc(20 * var(--m)); right: calc(20 * var(--m)); width: auto; margin: 0; top: calc(61 * var(--m)); font-size: calc(18 * var(--m)); line-height: calc(26 * var(--m)); }
+  .contact-dialog { height: auto; }
+  .contact-dialog[open] { display: block; }
+  .contact-dialog__aside { display: none; }
+  .contact-dialog__main { padding: calc(50 * var(--m)) calc(16 * var(--m)) calc(20 * var(--m)); }
+  .contact-dialog__title, .contact-dialog .form, .contact-dialog__social, .contact-dialog__foot { position: static; width: auto; }
+  .contact-dialog__title { font-size: calc(30 * var(--m)); line-height: 1.4; letter-spacing: calc(8 * var(--m)); }
+  .contact-dialog .form { display: block; margin-top: calc(16 * var(--m)); }
+  .contact-dialog .form__field { width: 100%; height: calc(40 * var(--m)); margin-bottom: calc(8 * var(--m)); }
+  .contact-dialog textarea.form__field { height: calc(100 * var(--m)); margin-bottom: calc(8 * var(--m)); }
+  .contact-dialog__social { justify-content: center; margin-top: calc(16 * var(--m)); }
+  .contact-dialog__foot { margin-top: calc(12 * var(--m)); font-size: calc(13 * var(--m)); line-height: 1.4; }
 }
 
 /* Teléfonos medianos/tablets: el escalado se topa en 1.6px y centramos columnas. */

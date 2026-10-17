@@ -105,6 +105,20 @@ La versión móvil de Wix es un layout de **320 px escalado** al ancho del telé
 `--m = min(100vw / 320, 1.6px)` y todas las medidas móviles se expresan como `calc(N * var(--m))`,
 con N = píxeles del layout de Wix. Así el resultado es proporcional al original en cualquier teléfono.
 
+## Componentes reutilizables
+
+| Componente | Dónde | Notas |
+|---|---|---|
+| Banner de subpágina | `.page-banner` en cada página | Foto sobre fondo turquesa (`--banner-op`), monograma `{{> jl-badge}}` y título. Alto/posiciones por página con `--banner-h`, `--badge-x/y`, `--title-x/y`. |
+| Escenario posicionado | `.stage` + hijos `.at` | Réplica del layout absoluto de Wix: cada hijo lleva `--x/--y/--w/--h` en px medidos. En móvil pasa a flujo normal (`position: static`). |
+| Contáctenos hoy | `_src/partials/contacto-hoy.html` | Parámetros: `subtitulo`, `origen`, y opcionales `alto`, `opacidad`, `titulo-y`, `tel-y`, `form-x` (varían 1-3 px entre páginas en el original). |
+| Formulario | `_src/partials/form-contacto.html` | Ver README, "Formularios". |
+| Plantilla de servicio | clases `.svc-*` | Las 3 páginas de servicio comparten estructura; columnas y alturas van inline (`--cols`, `--h`, `--mt`, `--mb`). |
+| Popup "CONTÁCTANOS" | `_src/partials/dialogo-contacto.html` | `<dialog>` nativo; lo abren los botones con `data-open-dialog="contacto-dialog"`. Sin JS el botón lleva a `/contacto/`. |
+| Comillas de testimonio | `_src/partials/comillas.html` | El vector original está rotado 180° (comillas de cierre). |
+
+`build.py` admite valores por defecto: `{{variable|valor}}`.
+
 ## Diferencias deliberadas con el original
 
 | Qué | Original | Copia | Motivo |
@@ -116,6 +130,11 @@ con N = píxeles del layout de Wix. Así el resultado es proporcional al origina
 | Formulario de la home en móvil | oculto | visible | es el principal punto de contacto |
 | Acción "LinkedIn" (barra móvil) | sin URL configurada | igual, deshabilitada | falta la URL real |
 | Encabezados | el logo es `<h1>` en todas las páginas | el logo es un link; cada página tiene su propio `<h1>` | SEO / accesibilidad |
+| LinkedIn de los socios (Equipo, móvil) | los íconos están intercambiados entre Cristián y Gonzalo | cada uno con su persona | error del original |
+| Íconos sociales del popup | solo Facebook tiene enlace y apunta a `facebook.com/wix` (resto de la plantilla) | íconos sin enlace | falta la URL real |
+| Número del banner de servicios (01/02/03) | enlaza a la página 01 en las tres páginas | texto sin enlace | error del original |
+| "Conozca además…" (servicios) | enlaza a Contraloría desde las tres páginas | texto sin enlace; las tarjetas de al lado sí enlazan | error del original |
+| Orden móvil de páginas de servicio | Wix baja la frase destacada y la caja "Contáctenos" a después de "Ventajas" | quedan junto a "Áreas de alcance" | evitar duplicar contenido |
 
 ## Checklists
 
@@ -138,3 +157,11 @@ Buscar con `grep -rn "3220 5850" _src assets/js` y luego `python3 build.py`.
 - En móvil, `visibility: visible` en el submenú le ganaba al `hidden` del menú cerrado y dejaba links
   invisibles pero clickeables encima de la página. Usar `visibility: inherit`.
 - Las fuentes de Google Fonts actuales no tienen las mismas métricas que las versiones que sirve Wix.
+- Al extraer, revisar siempre `transform` y `opacity` de cada componente: las comillas de Testimonios están rotadas 180° y los
+  títulos de los banners de servicio tienen un `fadeIn` de 1200 ms (si se miden a mitad de animación salen con opacidad 0,75).
+- En móvil, un `.at` que se vuelve `position: relative` heredaba `left: var(--x)` de escritorio y se salía 500 px de la
+  pantalla. El bloque móvil de `.at` resetea `left/top: auto`.
+- Los textos de Wix traen cadenas de `&nbsp;` ("validar&nbsp;su&nbsp;planificación…") que no caben en columnas angostas:
+  en móvil `body { overflow-wrap: break-word }`.
+- En un `<dialog>` el orden de tabulación es el del DOM: los campos del popup van Nombre, E-mail, Mensaje y la grilla CSS
+  los acomoda.
